@@ -1,0 +1,43 @@
+</br>
+
+<div class="alert">
+  <p id="notice" class="alert alert-success">
+    <%= notice %>
+      <strong>Aplicación Operador!</strong> Actualizado. 
+  </p>
+</div>
+
+<div class="modal-content text-center tabcontent">
+<div class="table-responsive">
+  <table class="table">
+
+    <thead>
+      <div class="row">
+        <tr class="success btn-info active justify-content-center">
+          <th colspan="2">Id</th>
+          <th>Usuario Operador</th>
+          <th>Nombre Aplicación</th>
+          <th>Estado</th>
+        </tr>
+      </div>
+    </thead>
+
+    <tbody>
+      <div class="row">
+      <tr class="text-center">
+        <td colspan="2"><%= @applicationoperator.id%></td>
+        <td><%= @applicationoperator.user.name %></td>
+        <td><%= @applicationoperator.application.name %></td>
+        <td><%= @applicationoperator.state %></td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="actions">
+</br>
+<% comment= link_to 'Editar', edit_applicationoperator_path(@applicationoperator) %>
+<%= link_to 'Regresar', applicationoperators_path, class: "btn btn-info" %>
+</div>

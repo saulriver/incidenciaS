@@ -1,0 +1,2 @@
+module UserareasHelper
+end

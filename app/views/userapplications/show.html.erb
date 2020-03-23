@@ -1,0 +1,49 @@
+<br/>
+
+<div class="alert">
+  <p id="notice" class="alert alert-success">
+    <%= notice %>
+      <strong>Aplicación Cliente!</strong> Actualizado. 
+  </p>
+</div>
+
+<div class="modal-content text-center tabcontent">
+<div class="table-responsive">
+  <table class="table">
+
+    <thead>
+      <div class="row">
+        <tr class="success btn-info active justify-content-center">
+          <th colspan="2">Id</th>
+          <th>Responsable</th>
+          <th>Cliente</th>
+          <th>Usuario Encargado</th>
+          <th>Aplicación</th>
+          <th>Nivel Servicio</th>
+          <th>Estado</th>
+        </tr>
+      </div>
+    </thead>
+
+    <tbody>
+      <div class="row">
+      <tr class="text-center">
+        <td colspan="2"><%= @userapplication.id%></td>
+        <td><%= @userapplication.user.creator %></td>
+        <td><%= @userapplication.client.name %></td>
+        <td><%= @userapplication.user.name %></td>
+        <td><%= @userapplication.applicationclient.application.name %></td>
+        <td><%= @userapplication.applicationclient.servicelevel %></td>
+        <td><%= @userapplication.state %></td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="actions">
+</br>
+<% comment= link_to 'Editar', edit_userapplication_path(@userapplication) %>
+<%= link_to 'Regresar', userapplications_path, class: "btn btn-info" %>
+</div>

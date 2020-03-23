@@ -1,0 +1,68 @@
+  <br/><br/>
+  <h1 style="color: #6c757d;">Cliente</h1>
+<hr><%= notice%>
+   
+<div class="row">
+  <div class="boton1">
+    <%= link_to 'Regresar', clients_path, class: "btn btn-info" %>
+    </div>
+</div><br/>
+
+<div class="divform">
+ <div class="modal-header">
+      <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+    </div>
+  <%= simple_form_for(@client) do |f| %>
+    <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <form>
+  <div class="left">
+   <figcaption class="figure-caption">
+      <%= f.input :nit, placeholder: "Registre NIT" %>
+   </figcaption>
+   </div>
+
+   <div class="right">
+   <figcaption class="figure-caption">
+      <%= f.input :name, placeholder: "Nombre Cliente" %>
+   </figcaption>
+   </div>
+
+   <div class="left">
+   <figcaption class="figure-caption">
+      <%= f.input :reason, placeholder: "Razon social" %>
+   </figcaption>
+   </div>
+
+   <div class="right">
+    <figcaption class="figure-caption">
+      <%= f.input :addres, placeholder: "Dirección Domicilio" %>
+   </figcaption>
+   </div>
+
+   <div class="left">
+    <figcaption class="figure-caption">
+      <%= f.input :telephone, placeholder: "Telefono Fijo/Celular" %>
+   </figcaption>
+   </div>
+
+   <div class="right">
+     <figcaption class="figure-caption">
+      <%= f.input :contact, placeholder: "Numero de contacto" %>
+   </figcaption>
+   </div>
+
+   <div class="left">
+   <figcaption class="figure-caption">
+        <%= f.label :state %>
+        <%= f.select :state,  options_for_select([['Activo', true], ['Inactivo', false]]) %>
+    </figcaption>
+    </div>
+
+    <div class="center">
+      <%= f.submit 'Guardar', method: :new %>
+    </div>
+  </form>
+  <% end %>
+</div>

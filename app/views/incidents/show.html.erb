@@ -1,0 +1,36 @@
+  <br/><br/>
+  <h1 style="color: #6c757d;">Archivos</h1>
+<hr>
+
+<!--tabla principal-->
+<div class="row">
+<div class="col-sm-6">
+ <div class="footer text-left">
+    <%= link_to 'Regresar', edit_incident_path(@incident), class: "btn btn-info" %>
+  </div><br/>
+  
+<% flash.each do |name, msg| %>
+      <div class="alert alert-info alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= msg%>
+      </div>
+    <% end %>
+
+<!--tabla imagen gestion-->
+<h5 class="text-left"><kbd>Imagén reporte incidencia</kbd></h5>
+<div class="modal-content text-center">
+<label class="form-group">
+      &nbsp; &nbsp;
+       <%comment= link_to edit_incident_path(@incident) do %>
+        <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+         <% end %>
+  <tbody>
+     <br/><br/>
+       <figure class="figure">
+         <%= image_tag(@incident.picture_url, class: 'figure-img img-fluid rounded', alt: 'Image') if @incident.picture? %>
+       </figure>
+  </tbody>
+</label>
+</div>
+</div>
+<!--tabla imagen-->

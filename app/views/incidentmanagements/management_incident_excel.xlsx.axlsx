@@ -1,0 +1,10 @@
+wb = xlsx_package.workbook
+  wb.add_worksheet(name: "Im") do |sheet|
+    
+    # Create the header row
+    sheet.add_row ["Item Name", "Quantity"]
+    # Create entries for each item
+    @incidentmanagements.each do |im|
+      sheet.add_row [im.id, im.user.name]
+    end
+  end

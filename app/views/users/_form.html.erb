@@ -1,0 +1,68 @@
+<br/><br/>
+<h1 style="color: #6c757d;">Usuario</h1>
+<hr><%= notice%>
+
+<div class="row">
+  <div class="boton1">
+    <%= link_to 'Regresar', users_path, class: "btn btn-info" %>
+    </div>
+</div><br/>
+
+<div class="divform">
+ <div class="modal-header">
+      <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+    </div>
+  <%= simple_form_for(@user) do |f| %>
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <form>
+    <div class="left">
+      <figcaption class="figure-caption">
+        <%= f.input :name, placeholder: "Nombre Usuario" %>
+        </figcaption>
+   </div>
+
+    <div class="right">
+      <figcaption class="figure-caption">
+           <%= f.input :email, placeholder: "Ej: user@domain.com" %>
+          </figcaption>
+    </div>
+
+    <div class="left">
+      <figcaption class="figure-caption">
+            <%= f.input :username, placeholder: "Ej: nombre.apellido" %>
+         </figcaption>
+    </div>
+
+    <div class="right">
+      <figcaption class="figure-caption">
+            <%= f.input :password, placeholder: "Minimo 6 caracteres" %>
+        </figcaption>
+    </div>
+
+   <div class="left">
+      <figcaption class="figure-caption">
+          <%= f.association :role %>
+           </figcaption>
+    </div>
+
+    <!--<div class="right">
+      <figcaption class="figure-caption">
+          <%= f.input :change_password, class: "form-control mb-2 mr-sm-2" %>
+        </figcaption>
+    </div> -->
+
+    <div class="right">
+      <figcaption class="figure-caption">
+          <%= f.label :state%>
+          <%= f.select :state, options_for_select([['Activo', true], ['Inactivo', false]]) %>
+        </figcaption>
+    </div>
+    
+    <div class="center">
+          <%= f.submit "Guardar" %>
+      </div>
+</form>
+ <% end %>
+</div>

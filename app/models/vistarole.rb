@@ -1,0 +1,3 @@
+class Vistarole < ApplicationRecord
+  
+end

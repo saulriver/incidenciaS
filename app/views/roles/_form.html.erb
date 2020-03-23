@@ -1,0 +1,38 @@
+  <br/><br/>
+  <h1 style="color: #6c757d;">Role</h1>
+<hr><%= notice%>
+   
+<div class="row">
+  <div class="boton1">
+    <%= link_to 'Regresar', roles_path, class: "btn btn-info" %>
+    </div>
+</div><br/>
+
+<div class="divform">
+ <div class="modal-header">
+      <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+    </div>
+  <%= simple_form_for(@role) do |f| %>
+    <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+<form>
+  <div class="left">
+   <figcaption class="figure-caption">
+      <%= f.input :name, placeholder: "Nombre del Role" %>
+   </figcaption>
+   </div>
+
+   <div class="right">
+    <figcaption class="figure-caption">
+        <%= f.label :state %>
+        <%= f.select :state,  options_for_select([['Activo', true], ['Inactivo', false]]) %>
+    </figcaption>
+    </div>
+
+  <div class="center">
+    <%= f.submit 'Guardar', method: :new %>
+    </div>
+  </form>
+  <% end %>
+</div>

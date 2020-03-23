@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  area: one
+  userapplication: one
+  user: one
+  criticality: one
+  description: MyText
+  state: false
+
+two:
+  area: two
+  userapplication: two
+  user: two
+  criticality: two
+  description: MyText
+  state: false

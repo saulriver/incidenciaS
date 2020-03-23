@@ -1,0 +1,3 @@
+class Statisticreport < ApplicationRecord
+  
+end

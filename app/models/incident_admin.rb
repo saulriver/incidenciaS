@@ -1,0 +1,3 @@
+class IncidentAdmin < ApplicationRecord
+  
+end

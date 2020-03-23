@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  application: one
+  client: one
+  servicelevel: 1
+  state: false
+
+two:
+  application: two
+  client: two
+  servicelevel: 1
+  state: false

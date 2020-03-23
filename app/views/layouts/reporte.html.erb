@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aplicacion Web</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <%= wicked_pdf_stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= wicked_pdf_javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+
+<h3 style="color: #6c757d;"><kbd>Listado reportes</kbd></h3>
+<div class="modal-content text-center">
+<div class="table-responsive">
+<table class="table">
+<thead>
+  <div class="row">
+    <tr class="success btn-info active justify-content-center">
+    <th colspan="3"><h5><b style="color: orange">Gestionar</b></h5></th>
+      <th><h6>Criticidad</h6></th>
+      <th><h6>Cliente</h6></th>
+      <th><h6>Reporta</h6></th>
+      <th><h6>Aplicación</h6></th>
+      <th><h6>Hrs/ANS</h6></th>
+      <th><h6>Tiempo/Reporte</h6></th>
+      <th><h6>Tiempo/Gestión</h6></th>
+      <th><h6>N° incidencia</h6></th>
+      <th><h6>Descripción</h6></th>
+      <th><h6>Archivos</h6></th>
+      <th><h6>Estado/Reporte</h6></th>
+    </tr>
+  </div>
+</thead>
+
+  <% @incidentmanagements.each do |incidentmanagement| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td><%= incidentmanagement.incident.criticality.name %></td>
+        <td><%= incidentmanagement.incident.userapplication.applicationclient.client.name %></td>
+        <td><%= incidentmanagement.user.name %></td>
+        <td><%= incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
+        <td><%= incidentmanagement.incident.userapplication.applicationclient.servicelevel %></td>
+        <td><%= incidentmanagement.incident.created_at %></td>
+        <td><%= incidentmanagement.updated_at %></td>
+        <td><kbd><%= incidentmanagement.incident.id %></kbd></td>
+        <td><%= incidentmanagement.incident.description %></td>
+        <td><%= incidentmanagement.picture.extension_whitelist%></td>
+        <td>
+          <% if incidentmanagement.incident.state %>
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />
+          <% end %>
+        </td>
+        <!--<td>
+           <%comment= link_to incidentmanagement, method: :delete, data: { confirm: 'Desea eliminar?', remote: true, class:"modal-content" } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+           <% end %>
+        </td>-->
+       </tr>
+       
+      </div>
+      </tbody>
+    <% end %>
+</table>
+</div>
+</div>
+
+<div id="spacing">
+<%= paginate(@incidentmanagements) %>
+</div>
+</body>
+  </html>

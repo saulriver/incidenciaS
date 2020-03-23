@@ -1,0 +1,58 @@
+<br/><br/>
+<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+   <h3 id="myModalLabel">Modal header</h3>
+ </div>
+ <div class="modal-body">
+   **here comes whatever you want to show!**
+ </div>
+ <div class="modal-footer">
+   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+   <button class="btn btn-primary">Save changes</button>
+ </div>
+
+ 
+<div class="modal-content tabcontent">
+  <div class="dialog">
+  <%= simple_form_for(@userapplication) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+        <div class="body">
+
+          <div class="form-group">
+          <%= f.association :client, label_method: :name, class: "form-control input-lg" %>
+          </div>
+
+          <div class="form-group">
+          <%= f.association :user, class: "form-control input-lg" %>
+          </div>
+
+          <div class="form-group">
+          <%= f.association :application, label_method: :name, class: "form-control input-lg" %>
+          </div>
+
+          <div class="form-group">
+          <%= f.association :applicationclient, label_method: :servicelevel, class: "form-control input-lg" %>
+          </div>
+          
+
+          <div class="form-group">
+          <%= f.label :state%>
+          <%= f.select :state, options_for_select([['Activo', true], ['Inactivo', false]]) %>
+          </div>
+
+        </div>
+
+        <div class="footer">
+          <%= f.submit "Guardar", class: "btn btn-primary btn-lg btn-block" %>
+          <br/>
+          <%= link_to 'Regresar', userapplications_path, class: "btn btn-info btn-lg btn-block" %>
+        </div>
+        
+      <% end %>
+
+    </div>
+  </div>

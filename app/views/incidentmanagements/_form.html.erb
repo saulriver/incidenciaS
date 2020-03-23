@@ -1,0 +1,59 @@
+<br/><br/>
+<div class="container">
+  <!-- The Modal -->
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+ <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title"><kbd>Gestiona incidencias</kbd></h4>
+    </div>
+<!-- Modal body -->
+  <div class="modal-body">
+    <div class="modal-content tabcontent">
+        <div class="dialog">
+<%= simple_form_for(@incidentmanagement, html: { multipart: true }) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    
+<form class="form-inline">
+  <label class="form-group col-md-2">
+    <%= f.association :user %>
+  </label>
+
+  <label class="form-group col-md-2">
+    <%= f.association :incident, label_method: :id %>
+  </label>
+
+  <label class="form-group col-md-7">
+    <%= f.input :datereport %>
+  </label>
+
+  <label class="form-group col-md-5">
+     <%= f.input :description %>
+  </label>
+
+  <label class="form-group">
+    <%= f.button :submit, class:"btn btn-info" %>
+    <%= link_to 'Regresar', vistagestions_path, class:"btn btn-info" %>
+  </label>
+
+<div class="col-md-5">
+  <figcaption class="figure-caption">
+      <%= f.label :picture %><br/>
+    </figcaption>
+       <%= f.file_field :picture, class: 'form-control'%>
+    <br/>
+    <figure class="figure">
+      <%= image_tag(@incidentmanagement.picture_url, class: 'figure-img img-fluid rounded') if @incidentmanagement.picture? %>
+     </figure>
+      <%= f.hidden_field :picture_cache %>
+</div>
+
+<% end %>
+       </form>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>

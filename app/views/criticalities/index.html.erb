@@ -1,0 +1,56 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Criticidad</h1>
+  <hr><%= notice%>
+
+    <div class="footer">
+      <%= link_to 'Nuevo', new_criticality_path, class: "btn btn-info" %>
+      <%= link_to "Menú", vistaclientes_path, class:"btn btn-info" %>
+    </div><br/>
+    
+<h5 class="text-left"><kbd>Listado criticidad</kbd></h5>
+<div id="Criticidades" class="modal-content text-center tabcontent">
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <div class="row">
+    <tr class="alert alert-secondary justify-content-center">
+      <th colspan="3">Id</th>
+      <th>Tipo Criticidad</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </div>
+  </thead>
+
+  <% @criticalities.each do |criticality| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><kbd><%= criticality.id %></kbd></td>
+        <td><%= criticality.name %></td>
+        <td>
+          <% if criticality.state %>
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_criticality_path(criticality) do %>
+            <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+          <% end %>
+          &nbsp; &nbsp;
+           <%= link_to criticality, method: :delete, data: { confirm: 'Are you sure?', remote: true } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+           <% end %>
+        </td>
+       </tr>
+      </div>
+      </tbody>
+
+    <% end %>
+  
+</table>
+</div>
+</div>

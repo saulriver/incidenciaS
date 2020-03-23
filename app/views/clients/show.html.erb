@@ -1,0 +1,50 @@
+<br/>
+<div class="alert">
+  <p id="notice" class="alert alert-success">
+    <%= notice %>
+      <strong>Cliente!</strong> Actualizado. 
+  </p>
+</div>
+
+<div class="modal-content text-center tabcontent">
+<div class="table-responsive">
+  <table class="table">
+
+    <thead>
+      <div class="row">
+        <tr class="success btn-info active justify-content-center">
+          <th colspan="2">Id</th>
+          <th>Nit</th>
+          <th>Empresa</th>
+          <th>Razón social</th>
+          <th>Dirección</th>
+          <th>Telefono</th>
+          <th>Contacto</th>
+          <th>Estado</th>
+        </tr>
+      </div>
+    </thead>
+
+    <tbody>
+      <div class="row">
+      <tr class="text-center">
+        <td colspan="2"><%= @client.id%></td>
+        <td><%= @client.nit %></td>
+        <td><%= @client.name %></td>
+        <td><%= @client.reason %></td>
+        <td><%= @client.addres %></td>
+        <td><%= @client.telephone %></td>
+        <td><%= @client.contact %></td>
+        <td><%= @client.state %></td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="actions">
+</br>
+<% comment= link_to 'Editar', edit_client_path(@client) %>
+<%= link_to 'Regresar', clients_path, class: "btn btn-info" %>
+</div>

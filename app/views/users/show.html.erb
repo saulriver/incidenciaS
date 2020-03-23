@@ -1,0 +1,49 @@
+<br/>
+<div class="alert">
+  <p id="notice" class="alert alert-success">
+    <%= notice %>
+      <strong>Usuario!</strong> Actualizado. 
+  </p>
+</div>
+
+<div class="modal-content text-center tabcontent">
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <div class="row">
+        <tr class="success btn-info active justify-content-center">
+          <th colspan="2">Id</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Nombre de usuario</th>
+          <th>Contraseña</th>
+          <th>Cambio Contraseña</th>
+          <th>Estado</th>
+        </tr>
+      </div>
+    </thead>
+
+    <tbody>
+      <div class="row">
+      <tr class="text-center">
+        <td colspan="2"><%= @user.id%></td>
+        <td><%= @user.name %></td>
+        <td><%= @user.email %></td>
+        <td><%= @user.role.name %></td>
+        <td><%= @user.username %></td>
+        <td><%= @user.password %></td>
+        <td><%= @user.change_password %></td>
+        <td><%= @user.state %></td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="actions">
+</br>
+<% comment= link_to 'Editar', edit_user_path(@user) %>
+<%= link_to 'Regresar', users_path, class: "btn btn-info" %>
+</div>

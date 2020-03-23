@@ -1,0 +1,96 @@
+<br/><br/>
+<h1 style="color: #6c757d;">Usuarios</h1>
+<hr><%= notice%>
+  
+  <div class="footer">
+    <%= link_to 'Nuevo', new_user_path, class: "btn btn-info" %>
+    <%= link_to "Menú", vistaroles_path, class:"btn btn-info" %>
+  </div><br/>
+
+<div class="custom-search-form">
+  <%=form_tag (users_path), method: :get do %>
+  <%=text_field_tag(:search, params[:search], placeholder: "Buscar...")%>
+<%end%>
+</div><br/>
+
+
+<h5 class="text-left"><kbd>Listado usuarios</kbd></h5>
+<div id="Usuarios" class="modal-content text-center tabcontent">
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <div class="row">
+    <tr class="alert alert-secondary justify-content-center">
+      <th colspan="3">Id</th>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Role</th>
+      <th>Usuario</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+      <th>Asignar</th>  
+    </tr>
+    </div>
+  </thead>
+
+  <% @users.each do |user| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><kbd><%= user.id %></kbd></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role.name %></td>
+        <td><%= user.username %></td>
+        <td>
+          <% if user.state %>           
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to edit_user_path(user) do %>
+            <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+          <% end %>
+          &nbsp; &nbsp;
+           <%= link_to user, method: :delete, data: { confirm: 'Are you sure?', remote: true } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+           <% end %>
+        </td>
+
+        <td>
+            <% if user.role.id == 1 %>
+				        <%= link_to user_area_index_path(user.id) do %>
+                  <%= image_tag "/img/areas_32.png", :title=>"Usuario área" %>
+              <% end %>&nbsp; &nbsp;
+
+            <%= link_to application_operator_index_path(user.id) do %>
+               <%= image_tag "/img/applicacion_32.png", :title=>"Aplicación operador" %>
+              <% end %>
+			      <% end %>
+
+			     <% if user.role.id == 2 %>
+				     <%= link_to user_client_index_path(user.id) do %>
+               <%= image_tag "/img/usuariocliente_32.png", :title=>"Usuario cliente" %>
+           <% end %>&nbsp; &nbsp;
+
+          <%= link_to user_application_index_path(user.id) do %>
+             <%= image_tag "/img/aplicacionclient_32.png", :title=>"Aplicación cliente" %>
+            <% end %>
+			    <% end %>
+        </td>
+      </tr>
+      </div>
+      </tbody>
+
+    <% end %>
+  
+</table>
+</div>
+</div>
+<div id="spacing">
+<%= paginate(@users) %>
+</div>

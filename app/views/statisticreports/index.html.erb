@@ -1,0 +1,20 @@
+<br/><br/>
+<h1 style="color: #6c757d;">Estadistica de incidencias</h1>
+<hr>
+<div class="container dark1-mode">
+ <div class="row">
+   <h1 style="color: #6c757d;">Reporte por aplicación
+    <!--<%= pie_chart Incident.group(:id).count %></h1>-->
+    <%= column_chart @incidents, prefix: "Total reporte: "  %></h1>
+    <hr>
+
+   <h1 style="color: #6c757d;">Reporte por áreas
+      <%= pie_chart Incident.joins(:area)
+      .where(user_id = current_login.user.role.id.to_s).group(:name).count, prefix: "Total reporte: "  %></h1>
+    <hr>
+    <h1 style="color: #6c757d;">Total incidencias
+    <%= bar_chart  Incident.joins(:user).where(user_id = current_login.user.role.id.to_s)
+    .group(:name).count, prefix: "Total reporte: "  %></h1>
+  <hr>
+ </div>
+</div>

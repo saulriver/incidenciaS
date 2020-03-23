@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Regedin Software</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+      <link rel="icon" href="img/ticket.ico">      
+     </head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgb(23, 162, 184);">
+<a class="navbar-brand" href='/welcome/index'>REGEDIN SOFTWARE</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+	<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="navbar-nav mr-auto">
+        <% if current_login.user.role_id == 3 %>
+          <li class="nav-item"><%= link_to "Administración", vistaroles_path, class:"nav-link" %></li>
+          <li class="nav-item"><%= link_to "Configuración", vistaclientes_path, class:"nav-link" %></li>
+          <li class="nav-item"><a class="nav-link" href="#">Consultas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Reportes</a></li>
+        <% end %>
+        <% if current_login.user.role_id == 2%><li class="nav-item"><%= link_to "Reporte Incidencias", vistareportes_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 1%><li class="nav-item"><%= link_to "Gestión Incidencias", vistagestions_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 3%><li class="nav-item"><%= link_to "Procesos", incident_admin_path, class:"nav-link" %></li><%end%>        
+        </ul>
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <% if login_signed_in? %>
+                <strong><%= current_login.username %></strong>
+            <%end%>
+        </a>
+					<div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="navbarDropdown">
+            <%= link_to 'Cambiar contraseña', edit_login_registration_path, class: "dropdown-item" %>
+            <%= link_to "Descargar manual", "/UserManual.pdf", class: "dropdown-item", :target => '_blank' %>
+            <!--<button onclick="myFunction()", class= "dropdown-item">Modo nocturno</button>-->
+            <%= link_to "Cerrar Sesión", destroy_login_session_path, class: "dropdown-item", method: :delete %>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+  </nav>
+
+    <div class="container">
+    <%= yield %>
+     </div>
+
+   </body>
+</html>

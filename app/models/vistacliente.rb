@@ -1,0 +1,3 @@
+class Vistacliente < ApplicationRecord
+  
+end

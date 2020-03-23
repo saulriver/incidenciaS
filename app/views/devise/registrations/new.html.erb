@@ -1,0 +1,52 @@
+<div class="bg-image-login"></div>
+  <div class="bg-text-login">
+    <div>
+        <div class="imgcontainer">
+          <h2 style="color: #6c757d;">REGEDIN SOFTWARE</h2>
+            <%comment= image_tag "/img/usuario_128.png", :alt=>"Avatar" %>
+          </div>
+       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+       
+    <form class="form-signin">
+
+    <% flash.each do |key, value| %>
+      <a>
+        <% if key == "alert"%>
+        <div class="alert alert-danger alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong> <%= value %></strong>
+        </div>
+        <% end %>
+      </a>
+    <% end %>
+
+      <figcaption class="figure-caption">
+        <%= f.label "Usuario", :id=>"text-label" %><br/>
+          <%= f.text_field :username,  class:"form-control", required: false, autofocus: true, input_html: { autocomplete: "username" }, :placeholder=> "nombre.apellido" %>
+        </figcaption>
+
+      <figcaption class="figure-caption">
+         <%= f.label "Correo", :id=>"text-label" %><br />
+          <%= f.email_field :email, class:"form-control", required: true, autofocus: true, input_html: { autocomplete: "email" }, :placeholder=> "ejemplo@gmail.com", :required=> :true %>
+         </figcaption>
+
+       <figcaption class="figure-caption">
+         <%= f.label "Contraseña", :id=>"text-label" %><br />
+          <%= f.password_field :password, class:"form-control", required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "off" }, :placeholder=> "Contraseña", :required=> :true  %>
+          </figcaption>
+
+       <figcaption class="figure-caption">
+          <%= f.label "Repetir Contraseña", :id=>"text-label" %><br />
+           <%= f.password_field :password_confirmation, class:"form-control", required: true, input_html: { autocomplete: "off" }, :placeholder=> "Repita contraseña", :required=> :true  %>
+          </figcaption>
+          <br/>
+      <%= f.submit "Crear Usuario", class:'btn btn-lg btn-block btn-signin' %>
+      
+      <%= render "devise/shared/links" %>
+  </form>
+      <% end %>
+      </div>
+      </div>
+<!--tabla editar-->

@@ -1,0 +1,158 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Aplicación cliente ANS</h1>
+  <hr><%= notice %>
+
+<div class="row">
+<div class="col-sm-12">
+<div class="footer text-left">
+ <%= link_to 'Regresar', clients_path, class: "btn btn-info" %>
+</div><br/>
+     <h5 class="text-left"><kbd>Cliente</kbd></h5>
+  <div id="Nservicios" class="modal-content text-center tabcontent">
+    <div class="table-responsive">
+     <table class="table">
+      <thead>
+     <div class="row">
+     <tr class="alert alert-secondary justify-content-center">
+        <th colspan="3">Id</th>
+            <th>Nit</th> 
+            <th>Nombre</th> 
+            <th>Razón</th>   
+            <th>Dirección</th>
+            <th>Teléfono</th>  
+            <th>Contacto</th> 
+            <th>Estado</th> 
+      </tr>
+      </div>
+    </thead>
+      <tbody>
+      <div class="row">
+          <tr class="text-center">
+            <td colspan="3"><kbd><%= @client.id %></kbd></td>
+            <td><%= @client.nit %></td> 
+            <td><%= @client.name %></td> 
+            <td><%= @client.reason %></td> 
+            <td><%= @client.addres %></td> 
+            <td><%= @client.telephone %></td> 
+            <td><%= @client.contact %></td>
+            <td>
+        <% if @client.state %>
+            <img src="/img/estado_activo_24.png" alt="Activo" />
+        <% else %>
+            <img src="/img/estado_falso_24.png" alt="Inactivo" />
+        <% end %>
+      </td>
+          </tr>
+          </div>
+      </tbody>
+  </table>
+</div>
+</div>
+</div>
+</div>
+
+ <p class="divider"></p>
+
+<div class="row">
+<div class="col-sm-8">
+<h5 class="text-left"><kbd>Listado clientes con ANS</kbd></h5>
+<div id="Nservicios" class="modal-content text-center tabcontent">
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <div class="row">
+    <tr class="alert alert-secondary justify-content-center">
+      <th colspan="3">Id</th>
+      <th>Aplicación</th>
+      <th>Cliente</th>
+      <th>Hrs de Servicio</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </div>
+  </thead>
+
+  <% @clientapplicationclients.each do |applicationclient| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><kbd><%= applicationclient.id %></kbd></td>
+        <td><%= applicationclient.application.name %></td>
+        <td><%= applicationclient.client.name %></td>
+        <td><%= applicationclient.servicelevel %>hrs</td>
+        <td>
+          <% if applicationclient.state %>           
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to edit_applicationclient_path(applicationclient) do %>
+            <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+          <% end %>
+          &nbsp; &nbsp;
+           <%= link_to applicationclient, method: :delete, data: { confirm: 'Are you sure?', remote: true } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+           <% end %>
+           </td>
+        </tr>
+      </div>
+      </tbody>
+
+    <% end %>
+  
+</table>
+</div>
+</div>
+<div id="spacing">
+    <%= paginate(@clientapplicationclients) %>
+</div>
+</div>
+
+<!--tabla editar-->
+<div class="col-sm-4">
+  <!-- The Modal -->
+    <div class="modal-dialog">
+      <div class="modal-content">
+ <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title"><kbd>Asignar</kbd></h5>
+    </div>
+<!-- Modal body -->
+  <div class="modal-body">
+    <div class="modal-content tabcontent">
+        <div class="dialog">
+        <%= simple_form_for(@applicationclient, url: client_application_client_create_path) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <%= f.hidden_field :user_id, :value => current_login.id%>
+        <%= f.hidden_field :client_id, :value => @client.id%>
+        <%= f.hidden_field :state, :value => true %>
+    <form>
+      <figcaption class="figure-caption">
+         <%= f.label :application %>
+         <%= f.select :application_id, options_for_select(@applications.collect{ |application| [application.name, application.id] })%>
+      </figcaption>
+       <label></label>
+
+      <figcaption class="figure-caption">
+        <%= f.label :servicelevel %>
+        <%= f.number_field :servicelevel, :value => 5, min: 5, max: 80, step: 1 %>
+      </figcaption>
+       <label></label>
+
+      <%= f.submit "Guardar" %>
+
+  </form>
+      </div>
+      <% end %>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</div>
+<!--tabla editar-->

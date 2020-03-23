@@ -3,9 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 
 
-gem "devise"
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+
 
 ruby "2.5.7"
 
@@ -15,7 +13,7 @@ gem "rails", ">= 5.2.3"
 #gem "mysql"
 gem "mysql2", '~> 0.5.3'
 # Use Puma as the app server
-gem "puma", "~> 3.12"
+gem "puma", "~> 3.11"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 5.0"
 # Use Uglifier as compressor for JavaScript assets
@@ -48,6 +46,10 @@ gem "jbuilder", "~> 2.5"
 gem 'bootsnap', require: false
 gem 'execjs'
 gem 'rails-i18n'
+gem 'kaminari-i18n', '~> 0.5.0'
+gem "devise"
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

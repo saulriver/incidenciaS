@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  incident: one
+  description: MyText
+  state: false
+
+two:
+  user: two
+  incident: two
+  description: MyText
+  state: false

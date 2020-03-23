@@ -1,0 +1,56 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Roles</h1>
+ <hr><%= notice%>
+
+    <div class="footer">
+      <%= link_to 'Nuevo', new_role_path, class: "btn btn-info" %>
+      <%= link_to "Menú", vistaroles_path, class:"btn btn-info" %>
+    </div><br/>
+    
+<h5 class="text-left"><kbd>Listado roles</kbd></h5>
+<div id="Roles" class="modal-content text-center tabcontent">
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <div class="row">
+    <tr class="alert alert-secondary justify-content-center">
+      <th colspan="3">Id</th>
+      <th>Role</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </div>
+  </thead>
+
+  <% @roles.each do |role| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><kbd><%= role.id %></kbd></td>
+        <td><%= role.name %></td>
+        <td>
+          <% if role.state %>           
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />          
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_role_path(role) do %>
+            <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+          <% end %>
+         &nbsp; &nbsp;
+          <%= link_to role, method: :delete, data: { confirm: 'Are you sure?', remote: true } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+          <% end %>
+        </td>
+        </tr>
+      </div>
+      </tbody>
+
+    <% end %>
+  
+</table>
+</div>
+</div>

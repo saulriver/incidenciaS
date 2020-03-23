@@ -1,0 +1,49 @@
+</br>
+
+<div class="alert">
+  <p id="notice" class="alert alert-success">
+    <%= notice %>
+      <strong>Usuario cliente!</strong> Actualizado. 
+  </p>
+</div>
+
+<div class="modal-content text-center tabcontent">
+<div class="table-responsive">
+  <table class="table">
+
+    <thead>
+      <div class="row">
+        <tr class="success btn-info active justify-content-center">
+          <th colspan="3">Id</th>
+          <th>Usuario Encargado</th>
+          <th>Nombre Usuario</th>
+          <th>Role</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th>Responsable</th>
+        </tr>
+      </div>
+    </thead>
+
+    <tbody>
+      <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><%= @userclient.id%></td>
+        <td><%= @userclient.user.name %></td>
+        <td><%= @userclient.user.username %></td>
+        <td><%= @userclient.user.role_id %></td>
+        <td><%= @userclient.client.name %></td>
+        <td><%= @userclient.state %></td>
+        <td><%= @userclient.user.creator %></td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="actions">
+</br>
+<% comment= link_to 'Editar', edit_userclient_path(@userclient) %>
+<%= link_to 'Regresar', userclients_path, class: "btn btn-info" %>
+</div>

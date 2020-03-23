@@ -1,0 +1,59 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Aplicación</h1>
+   <hr><%= notice%>
+
+    <div class="footer">
+      <%= link_to 'Nuevo', new_application_path, class: "btn btn-info" %>
+      <%= link_to "Menú", vistaclientes_path, class:"btn btn-info" %>
+    </div><br/>
+    
+<h5 class="text-left"><kbd>Listado aplicación</kbd></h5>
+<div id="Aplicaciones" class="modal-content text-center tabcontent">
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <div class="row">
+    <tr class="alert alert-secondary justify-content-center">
+      <th colspan="3">Id</th>
+      <th>Nombre Aplicación</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </div>
+  </thead>
+
+  <% @applications.each do |application| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><kbd><%= application.id %></kbd></td>
+        <td><%= application.name %></td>
+        <td>
+          <% if application.state %>           
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_application_path(application) do %>
+            <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+          <% end %>
+          &nbsp; &nbsp;
+           <%= link_to application, method: :delete, data: { confirm: 'Are you sure?', remote: true } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+           <% end %>
+        </td>
+      </tr>
+      </div>
+    </tbody>
+
+    <% end %>
+  
+</table>
+</div>
+</div>
+<div id="spacing">
+<%= paginate(@applications) %>
+</div>

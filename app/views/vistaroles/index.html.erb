@@ -1,0 +1,41 @@
+<br/><br/>
+<div role="main" class="container-fluid">
+<div class="container-menu">
+<h1 style="color: #6c757d;">Administración</h1>
+<hr><br>
+<div class="row">
+	<div class="col-sm-2">
+		<div class="card-menu">
+			<div class="icon">
+				<a href="<%= roles_path %>"><img alt="image" src="/img/roles_128.png"></a>
+			</div>
+			<div class="legend">
+			  <%= link_to 'Role', roles_path %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-2">
+		<div class="card-menu">
+			<div class="icon">
+				<a href="<%= clients_path %>"><img alt="image" src="/img/cliente_128.png"></a>
+			</div>
+			<div class="legend">
+				<%= link_to 'Cliente', clients_path %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-2">
+		<div class="card-menu">
+			<div class="icon">
+				<a href="<%= users_path %>"><img alt="" src="/img/usuario_128.png"></a>
+			</div>
+			<div class="legend">
+				<%= link_to 'Usuario', users_path %>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>

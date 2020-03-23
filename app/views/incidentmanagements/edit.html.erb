@@ -1,0 +1,183 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Gestionar Reporte</h1>
+<hr>
+
+<!--tabla principal-->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="footer text-left">
+     <%= link_to 'Regresar', new_incidentmanagement_path, class: "btn btn-info" %></div><br/>
+
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <%= msg%>
+          </div>
+        <% end %>
+
+  <h5 class="text-left"><kbd>Incidencia reportada</kbd></h5>
+  
+ <div class="modal-content text-center">
+   <div class="table-responsive">
+     <table class="table">
+        <thead>
+          <div class="row">
+            <tr class="success btn-info active justify-content-center">
+              <th colspan="2"><h5><b style="color: orange">Ticket</b></h5></th>
+              <th><h6>Criticidad</h6></th>
+              <th><h6>Aplicación</h6></th>
+              <th><h6>Cliente</h6></th>
+              <th><h6>Reporta</h6></th>
+              <th><h6>Hrs/Reporte</h6></th>
+              <th><h6>Descripción</h6></th>
+              <th><h6>Estado</h6></th>
+              <th><h6>Gestionar</h6></th>
+            </tr>
+            </div>
+        </thead>
+
+        <tbody>
+            <div class="row">
+                <tr class="text-center">
+                    <td colspan="2">
+                        <% if DateTime.now < @incidentmanagement.Overtime%>
+                        <kbd class="btn-group btn btn-success btn-sm"><%= @incidentmanagement.incident.id %></kbd>
+                        <%end%>
+                        <% if DateTime.now > @incidentmanagement.Overtime && DateTime.now < @incidentmanagement.Littletime %>
+                        <kbd class="btn-group btn btn-warning btn-sm"><%= @incidentmanagement.incident.id %></kbd>
+                        <%end%>
+                        <% if DateTime.now > @incidentmanagement.Littletime %>
+                        <kbd class="btn-group btn btn-danger btn-sm"><%= @incidentmanagement.incident.id %></kbd>
+                        <%end%>
+                      </td>
+                    <td><%= @incidentmanagement.incident.criticality.name %></td>
+                    <td><%= @incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
+                    <td><%= @incidentmanagement.incident.userapplication.applicationclient.client.name %></td>
+                    <td><%= @incidentmanagement.incident.user.name%></td>
+                    <td><%= localize (@incidentmanagement.incident.created_at)%></td>
+                    <td><%= @incidentmanagement.incident.description%></td>
+                    <td>
+                        <% if @incidentmanagement.state == "abierta" %>              
+                          <p style="color:#2663E5;"><b>Abierto</b></p>
+                          <%end%>
+                          <% if @incidentmanagement.state == "gestionando" %>              
+                                <p style="color:#F9BF31;"><b>Gestionando</b></p>
+                          <%end%>
+                          <% if @incidentmanagement.state == "terminada" %>              
+                            <p style="color:#C2B106;"><b>Terminada</b></p>
+                          <%end%>
+                          <% if @incidentmanagement.state == "rechazada" %>              
+                            <p style="color:#c82333;"><b>Rechazada</b></p>
+                          <%end%>
+                          <% if @incidentmanagement.state == "aprobada" %>              
+                            <p style="color:#0BB703;"><b>Aprobada</b></p>
+                          <%end%>
+                          <% if @incidentmanagement.state == "cerrada" %>
+                            <p style="color:#E30840;"><b>Cerrado</b></p>
+                            <%end%>
+                        </td>
+                    <td>
+                        <%comment= link_to gestionar_incident_path(@incidentmanagement.id) do %>
+                          <%= image_tag "/img/aplicacioncliente_32.png", :title=> "Aplicación cliente"%>
+                          <% end %>
+                        <% if @incidentmanagement.state == "abierta" %> 
+                          <%= link_to gestionar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de gestionar esta incidencia?', remote: false } do %>
+                        <%= image_tag "/img/ver_24.png", :title=>"Abierta" %>
+                          <% end %>
+                        <%end%>
+                            <% if @incidentmanagement.state == "gestionando" %> 
+                            <%= link_to terminar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de terminar esta incidencia?', remote: false } do %>
+                                <%= image_tag "/img/aplicacioncliente_32.png", :title=>"Gestionar" %>
+                        <% end %>
+                          <%end%>
+                          <% if @incidentmanagement.state == "aprobada" %> 
+                          <%= link_to cerrar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de cerrar esta incidencia?', remote: false } do %>
+                              <%= image_tag "/img/estado_activo_24.png", :title=>"Aprobada" %>
+                          <% end %>
+                        <%end%>
+                          <% if @incidentmanagement.state == "rechazada" %> 
+                          <%= link_to abrir_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de abrir esta incidencia?', remote: false } do %>
+                              <%= image_tag "/img/estado_falso_24.png", :title=>"Rechazada" %>
+                          <% end %>
+                        <%end%>
+                      </td>
+                  </tr>
+              </div>
+          </tbody>
+        </table>
+    </div>
+  </div><br/>
+<!--tabla principal-->
+
+<!--tabla imagen reporte-->
+<div class="row">
+  <div class="col-md-7">
+    <h5 class="text-left"><kbd>Imagén reporte incidencia</kbd></h5>
+      <div class="modal-content text-center">
+        <label class="form-group">
+          <%comment= link_to edit_incidentmanagement_path(@incidentmanagement) do %>
+            <%= image_tag "/img/edit_24.png", :title=>"Editar" %><% end %>
+              <tbody><br/>
+                <figure class="figure">
+                  <%= image_tag(@incidentmanagement.incident.picture_url.to_s, class: 'figure-img img-fluid rounded', alt: 'Archivo') if @incidentmanagement.incident.picture? %>
+                </figure><br/>
+                  
+                <figure class="figure">
+                  <%= link_to "Descargar archivo", @incidentmanagement.incident.picture_url.to_s, :target => '_blank', alt: 'Archivo' %>
+                </figure>
+              </tbody>
+          </label>
+    </div>
+</div>
+<!--tabla imagen-->
+
+<!--tabla editar-->
+<div class="col-sm-5">
+  <!-- The Modal -->
+    <div class="modal-dialog">
+      <div class="modal-content">
+ <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title"><kbd>Gestionar incidencia</kbd></h5>
+    </div>
+      <!-- Modal body -->
+        <div class="modal-body">
+          <div class="modal-content tabcontent">
+              <div class="dialog">
+              <%= simple_form_for(@incidentmanagement, html: { multipart: true }) do |f| %>
+              <%= f.error_notification %>
+              <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+          
+          <form class="form-signin">
+            <figcaption class="figure-caption">
+                  <%=f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_login.id}" }%>
+              </figcaption>
+
+                <figcaption class="figure-caption">
+                  <%= f.label :picture %>
+                </figcaption>
+                <%= f.file_field :picture, class: 'form-control'%>
+
+                  <label></label>
+                    <figcaption class="figure-caption">
+                      <%= f.input :description %>
+                    </figcaption>
+
+                    <figure class="figure">
+                      <%= image_tag(@incidentmanagement.picture_url, class: 'figures-img index img-fluid rounded' ) if @incidentmanagement.picture? %>
+                    </figure>
+                    
+                  <%= f.hidden_field :picture_cache %>
+                  <%= f.submit "Enviar descripción", method: :edit %>
+                  
+          </form>
+         <% end %>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+<!--tabla editar-->
+

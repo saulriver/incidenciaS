@@ -1,0 +1,141 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Aplicación cliente</h1>
+  <hr><%= notice %>
+
+ <div class="row">
+<div class="col-sm-12">
+ <div class="footer text-left">
+    <%= link_to 'Regresar', users_path, class:"btn btn-info" %>
+  </div><br/>
+     <h5 class="text-left"><kbd>Usuario</kbd></h5>
+  <div id="Nservicios" class="modal-content text-center tabcontent">
+    <div class="table-responsive">
+     <table class="table">
+      <thead>
+     <div class="row">
+     <tr class="alert alert-secondary justify-content-center">
+            <th colspan="3">Id</th>           
+            <th>Nombre</th> 
+            <th>Nombre_usuario</th> 
+            <th>Rol</th>   
+            <th>Correo</th>        
+            <th>Estado</th>  
+          </tr>
+          </div>
+        </thead>
+          <tbody>          
+              <tr class="text-center">
+                <td colspan="3"><kbd><%= @user.id %></kbd></td>
+                <td><%= @user.name %></td> 
+                <td><%= @user.username %></td> 
+                <td><%= @user.role.name %></td>
+                <td><%= @user.email %></td>
+                <td>
+                    <% if @user.state %>
+                      <img src="/img/estado_activo_24.png" alt="Activo" />
+                    <% else %>           
+                      <img src="/img/estado_falso_24.png" alt="Inactivo" />
+                    <% end %>
+                </td>
+              </tr>            
+          </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+
+ <p class="divider"></p>
+
+<div class="row">
+<div class="col-sm-8">
+<h5 class="text-left"><kbd>Listado aplicación cliente</kbd></h5> 
+<div id="Uaplicaciones" class="modal-content text-center tabcontent">
+<div class="table-responsive">
+<table class="table">
+  <thead>
+  <div class="row">
+    <tr class="alert alert-secondary justify-content-center">
+      <th colspan="3">Id</th> 
+      <th>Cliente</th>
+      <th>Aplicación</th>
+      <th>Acuerdo gestión(ANS)</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </div>
+  </thead>
+
+  <% @userapplications.each do |userapplication| %>
+
+  <tbody>
+    <div class="row">
+      <tr class="text-center">
+        <td colspan="3"><kbd><%= userapplication.id %></kbd></td>
+        <td><%= userapplication.applicationclient.client.name %></td>
+        <td><%= userapplication.applicationclient.application.name %></td>
+        <td><%= userapplication.applicationclient.servicelevel %>hrs</td>
+        <td>
+          <% if userapplication.state %>
+             <img src="/img/estado_activo_24.png" alt="Activo" />
+          <% else %>           
+             <img src="/img/estado_falso_24.png" alt="Inactivo" />
+          <% end %>
+        </td>
+         <td>
+         <%= link_to userapplication, method: :delete, data: { confirm: 'Desea Eliminar?' } do %>
+                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+           <% end %>
+        </td>
+      </tr>
+      </div>
+      </tbody>
+
+    <% end %>
+  
+</table>
+
+</div>
+</div>
+<div id="spacing">
+    <%= paginate(@userapplications) %>
+</div>
+</div>
+
+<!--tabla editar-->
+<div class="col-sm-4">
+  <!-- The Modal -->
+    <div class="modal-dialog">
+      <div class="modal-content">
+ <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title"><kbd>Asignar</kbd></h5>
+    </div>
+<!-- Modal body -->
+  <div class="modal-body">
+    <div class="modal-content tabcontent">
+        <div class="dialog">
+        <%= simple_form_for(@userapplication, url: user_application_create_path) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <%= f.hidden_field :user_id, :value => @user.id%>
+        <%= f.hidden_field :state, :value => true%>
+
+    <form>
+      <figcaption class="figure-caption">
+        <%= f.label :applicationclient %>
+        <%= f.select :applicationclient_id, options_for_select(@applicationclients.collect{ |applicationclient| [[applicationclient.application.name, applicationclient.servicelevel], applicationclient.id] })%>
+         </figcaption>
+
+      <%= f.submit "Guardar", method: :edit %>
+
+  </form>
+      </div>
+      <% end %>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</div>
+<!--tabla editar-->

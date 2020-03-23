@@ -1,0 +1,42 @@
+<br/><br/>
+<div role="main" class="container-fluid">
+<div class="container-menu">
+<h1 style="color: #6c757d;">Reporte incidencias</h1>
+<hr><br/>
+
+<div class="row">
+	<div class="col-sm-2">
+		<div class="card-menu">
+			<div class="icon">
+				<a href="<%= new_incident_path %>"><img alt="image" src="/img/report_128.png"></a>
+			</div>
+			<div class="legend">
+				<%= link_to 'Reportar incidencia', new_incident_path, remote: true %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-2">
+		<div class="card-menu">
+			<div class="icon">
+				<a href="<%= incidents_path %>"><img alt="image" src="/img/process_128.png"></a>
+			</div>
+			<div class="legend">
+				<%= link_to 'Consulta reporte', incidents_path %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-2">
+		<div class="card-menu">
+			<div class="icon">
+				<a href="<%= statisticreports_path %>"><img alt="" src="/img/estadistica_128.png"></a>
+			</div>
+			<div class="legend">
+				<%= link_to 'Estadistica', statisticreports_path %>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>

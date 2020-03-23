@@ -1,0 +1,3 @@
+class Statisticmanage < ApplicationRecord
+  
+end

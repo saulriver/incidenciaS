@@ -1,0 +1,77 @@
+<br/><br/>
+  <h1 style="color: #6c757d;">Nueva incidencia</h1>
+<hr>
+   
+
+  <div class="footer text-left">
+    <%= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
+    </div><br/>
+
+<% flash.each do |name, msg| %>
+      <div class="alert alert-info alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= msg%>
+      </div>
+    <% end %>
+
+<div class="divform">
+ <div class="modal-header">
+      <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+    </div>
+  <%= simple_form_for(@incident, html: { multipart: true }) do |f| %>
+    <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+<form>
+
+  <div class="left" id="userapplication">
+   <figcaption class="figure-caption">
+      <%= f.association :userapplication, collection: Userapplication.where(user_id: current_login.id).includes(:applicationclient), label_method: :lista_appclient, input_html: { class: "form-control mb-2 mr-sm-2"} %>
+   </figcaption>
+   </div>
+   
+<label></label>
+   <div class="right" id="area">
+    <figcaption class="figure-caption">
+       <%= f.association :area %>
+    </figcaption>
+   </div>
+
+   <div class="left" id="criticality">
+    <figcaption class="figure-caption">
+       <%= f.association :criticality %>
+    </figcaption>
+   </div>
+
+   <div class="right" id="description">
+    <figcaption class="figure-caption">
+         <%= f.input :description, placeholder: 'Describe la incidencia claramente.' %>
+    </figcaption>
+   </div>
+   
+   <div class="center">
+    <figcaption class="figure-caption">
+        <%= f.label :picture %><br/>
+    </figcaption>
+    </div>
+
+   <div class="center" id="picture">
+    <figcaption class="figure-caption">
+         <%= f.file_field :picture %>
+         <%= f.hidden_field :picture_cache %>
+     </figcaption>
+   </div>
+
+  <label></label>
+
+  <div class="center">
+     <%=f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_login.id}" }%>
+  </div>
+
+   <div class="center">
+     <%= f.submit 'Reportar',  data: { confirm: 'Are you ready?'} %>
+    </div>
+
+  </form>
+  <% end %>
+</div>

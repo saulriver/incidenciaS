@@ -1,0 +1,87 @@
+es:
+   activerecord:
+     attributes:
+       login: 
+         username: "Usuario"
+         email: "Correo electrónico"
+         password: "Contraseña"
+         password_confirmation: "Confirmar contraseña"
+         current_password: "Cambiar contraseña"
+       role: 
+         name: "Role"
+         state: "Estado"
+       client: 
+         name: "Nombre de empresa"
+         reason: "Razón social"
+         addres: "Dirección"
+         telephone: "Teléfono"
+         contact: "Contacto"
+         state: "Estado"
+       user: 
+         name: "Nombre"
+         email: "Correo electronico"
+         role: "Role"
+         username: "Usuario"
+         password: "Contraseña"
+         change_password: "Cambio de contraseña"
+         state: "Estado"
+       userapplication: 
+         user: "Usuario"
+         applicationclient: "Aplicación, Cliente y ANS"
+         application: "Aplicación"
+         client: "Cliente"
+         state: "Estado"
+       application: 
+         name: "Aplicación"
+         state: "Estado"
+       area:
+         name: "Área"
+         state: "Estado"
+       applicationoperator: 
+         user: "Asignar nombre"
+         application: "Aplicación, Cliente y ANS"
+         state: "Estado"
+       criticality:
+         name: "Estado de criticidad"
+         state: "Estado"
+       logins: 
+         email: "Correo electronico"
+         encrypted_password: "Contraseña encriptada"
+         reset_password_token: "Restablecer token de contraseña"
+         reset_password_sent_at: "Restablecer contraseña enviada a"
+         remember_created_at: "Recuerda creado en"
+         username: "Usuario"
+       applicationclient: 
+         user: "Asignar nombre"
+         application: "Aplicación"
+         client: "Nombre empresa"
+         servicelevel: "Hrs de servicio"
+         state: "Estado"
+       userarea: 
+         user: "Asignar nombre"
+         area: "Área"
+         state: "Estado"
+       userclient:
+         client: "Cliente"
+         user: "Asignar usuario"
+         state: "Estado"
+       incident: 
+         area: "Área"
+         userapplication: "Aplicación usuario"
+         user: "Usuario"
+         criticality: "Criticidad"
+         description: "Descripción"
+         datereport: "Fecha/Hora"
+         state: "Estado"
+         picture: "Subir archivo"
+       incidentmanagement: 
+          user: "Gestiona"
+          incident: "N° incidencia"
+          datereport: "Fecha/Hora"
+          description: "Descripción"
+          state: "Estado"
+          picture: "Subir archivo"
+       managefile: 
+          incidentmanagement_id: "N° gestión incidencia"
+          filetype: "Tipo archivo"
+          state: "Estado"

@@ -1,0 +1,13 @@
+<br/><br/>
+<h1 style="color: #6c757d;">Estadistica</h1>
+<hr>
+<div class="container dark1-mode">
+ <div class="row">
+    <h1 style="color: #6c757d;">Incidencias
+      <%= pie_chart @incidentmanagements, prefix: "Total reporte: " %></h1>
+     <hr> 
+    <h1 style="color: #6c757d;">Gestión por área
+      <%= column_chart @areas, prefix: "Total: " %></h1>
+     <hr>
+ </div>
+</div>

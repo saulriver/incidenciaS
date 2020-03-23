@@ -1,0 +1,30 @@
+<br/><br/><br/>
+<h1>Incidentfiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Incident</th>
+      <th>Filetype</th>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @incidentfiles.each do |incidentfile| %>
+      <tr>
+        <td><%= incidentfile.incident %></td>
+        <td><%= incidentfile.filetype %></td>
+        <td><%= incidentfile.state %></td>
+        <td><%= link_to 'Show', incidentfile %></td>
+        <td><%= link_to 'Edit', edit_incidentfile_path(incidentfile) %></td>
+        <td><%= link_to 'Destroy', incidentfile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Incidentfile', new_incidentfile_path %>

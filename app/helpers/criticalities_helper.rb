@@ -1,0 +1,2 @@
+module CriticalitiesHelper
+end

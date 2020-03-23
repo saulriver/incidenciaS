@@ -146,6 +146,9 @@ GEM
       kaminari (>= 0.13.0)
       rails
     kaminari-core (1.1.1)
+    kaminari-i18n (0.5.0)
+      kaminari
+      rails
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -174,7 +177,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     public_suffix (4.0.3)
-    puma (3.12.4)
+    puma (3.12.2)
     rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -300,10 +303,11 @@ DEPENDENCIES
   jquery-rails
   kaminari (~> 1.1, >= 1.1.1)
   kaminari-bootstrap
+  kaminari-i18n (~> 0.5.0)
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mysql2 (~> 0.5.3)
-  puma (~> 3.12)
+  puma (~> 3.11)
   rails (>= 5.2.3)
   rails-i18n
   sass-rails (~> 5.0)

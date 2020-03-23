@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Incidentmanagement:</strong>
+  <%= @managefile.incidentmanagement %>
+</p>
+
+<p>
+  <strong>Filetype:</strong>
+  <%= @managefile.filetype %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @managefile.state %>
+</p>
+
+<%= link_to 'Edit', edit_managefile_path(@managefile) %> |
+<%= link_to 'Back', managefiles_path %>
