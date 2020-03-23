@@ -11,10 +11,6 @@
    <%end%>
 </div>
 
-<div>
-<%= link_to 'pdf', incidents_path(format: :pdf), method: :get, :target => '_blank', class:"fa fa-file-pdf-o fa-fw fa-2x",style:"color:tomato;"%>
-</div>
-
 <% flash.each do |name, msg| %>
       <div class="alert alert-info alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
