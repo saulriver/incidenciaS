@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+
   root to: "welcome#index"
   get 'welcome/index'
   resources :managefiles
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   resources :statisticreports
   resources :statisticmanages
   resources :welcomes
-  resources :reportes
+
   get '/user/client/:id', to: 'users#user_client_index', as: "user_client_index"
   post '/user/client/:id', to: 'users#user_client_create', as: "user_client_create"
   get '/user/client/delete/:id', to: 'users#user_client_destroy', as: "user_client_destroy"
@@ -53,8 +54,11 @@ Rails.application.routes.draw do
   get '/cerrar/incident/:id', to: 'incidents#cerrar_incident', as: "cerrar_incident"
 
   get '/incident/admin', to: 'incident_admin#incident_admin', as: "incident_admin"
-  get '/incident/admin/:id/edit', to: 'incident_admin#incident_admin_edit', as: "incident_admin_edit"
-  
+  get '/assign/incident/:id', to: 'incident_admin#assign_incident', as: "assign_incident"
+  post '/incident/admin/list/userArea', to: 'incident_admin#listUserArea', as: "listUserArea"
+  post '/incident/admin/assign/operator', to: 'incident_admin#incident_admin_assign_operator', as: "incident_admin_assign_operator"
+
+
   devise_for :logins, controllers: {
     sessions: 'logins/sessions',
     registrations: 'logins/registrations'

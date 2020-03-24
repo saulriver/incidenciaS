@@ -1,0 +1,100 @@
+<br/><br/>
+<h1 style="color: #6c757d;">Asignar tareas a usuarios operadores</h1>
+<hr>
+
+<div class="row">
+    <div class="col-sm-12">
+        <%= link_to 'Regresar', incident_admin_path, class: "btn btn-info" %>
+    </div>
+</div>
+
+<% flash.each do |name, msg| %>
+    <div class="alert alert-info alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <%= msg%>
+    </div>
+  <% end %>
+  
+  <h5 class="text-left"><kbd>Listado incidencias para asignar</kbd></h5>
+<div class="row">
+    <div class="col-sm-8">
+        <table class="table dark2-mode">
+        <thead>
+        <tr class="alert alert-secondary justify-content-center text-center">
+            <th colspan="3">Id</th>
+                <th><h6>Aplicación</h6></th>
+                <th><h6>Area</h6></th>
+                <th><h6>Reporta</h6></th>
+                <th><h6>Nivel</h6></th>
+                <th><h6>ANS</h6></th>
+                <th><h6>Enviada</h6></th>
+                <th><h6>Descripción</h6></th>
+                <th><h6>Estado</h6></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center">
+                <td colspan="3"><kbd><%= @incidentmanagement.id %></kbd></td>
+                <td><%= @incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
+                <td><%= @incidentmanagement.incident.area.name %></td>
+                <td><%= @incidentmanagement.incident.user.name %></td>
+                <td><%= @incidentmanagement.incident.criticality.name %></td>
+                <td><%= @incidentmanagement.incident.userapplication.applicationclient.servicelevel %>hrs</td>
+                <td><%= @incidentmanagement.incident.created_at.in_time_zone %></td>
+                <td><%= @incidentmanagement.incident.description %></td>
+                <td>      
+                    <% if @incidentmanagement.state == "abierta" %>              
+                        <p style="color:#c82333;"><b>Abierta</b></p>
+                    <%end%>
+                    <% if @incidentmanagement.state == "gestionando" %>              
+                            <p style="color:#c82333;"><b>Gestionando</b></p>
+                    <%end%>
+                    <% if @incidentmanagement.state == "terminada" %>              
+                        <p style="color:#c82333;"><b>Terminada</b></p>
+                    <%end%>
+                    <% if @incidentmanagement.state == "aprobada" %>              
+                        <p style="color:#c82333;"><b>Aprobada</b></p>
+                    <%end%>
+                    <% if @incidentmanagement.state == "cerrada" %>
+                       <p style="color:#218838;"><b>Cerrado</b></p>
+                    <%end%>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+         <div class="col-sm-4">
+            <!-- The Modal -->
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h5 class="modal-title"><kbd>Asignar</kbd></h5>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="modal-content tabcontent">
+                        <div class="dialog">
+                            <%= hidden_field_tag "incidentmanagement_id", @incidentmanagement.id %>
+                            
+                            <figcaption class="figure-caption">
+                                <%= label_tag 'Area' %>
+                                <%= select_tag "area_id", options_from_collection_for_select(@areas, "id", "name"), include_blank: "--- Seleccionar ---", onchange: "btnSubmit();" %>                              
+                            </figcaption>
+
+                            <figcaption class="figure-caption">
+                                <%= label_tag 'Operador' %>
+                                <%= select_tag "operador_id", options_for_select([["--- Seleccionar ---", -1]]), onchange: "btnSubmit();" %>                        
+                            </figcaption>
+                                </br>
+                            <figcaption class="figure-caption">
+                                <%= link_to '<button class="btn btn-info" type="button" id="btnAssignOperatorIncident" disabled>Asignar</button>'.html_safe %>
+                            </figcaption>                                                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

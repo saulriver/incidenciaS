@@ -23,7 +23,7 @@
       </div>
     </thead>
       <tbody>          
-          <tr class="text-center">
+          <tr class="text-center figure-caption">
             <td colspan="3"><kbd><%= @user.id %></kbd></td>
             <td><%= @user.name %></td>
             <td><%= @user.email %></td>
@@ -65,7 +65,7 @@
 <% @userclients.each do |userclient| %>
 
 <tbody>
-<tr class="text-center">
+<tr class="text-center figure-caption">
 <td colspan="3"><kbd><%= userclient.id %></kbd></td>
 <td><%= userclient.client.name %></td>
 <td><%= userclient.user.name %></td>

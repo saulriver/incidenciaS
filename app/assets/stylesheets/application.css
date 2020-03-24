@@ -21968,6 +21968,12 @@ img.avatar {
     color: white;
     transition: all .3s ease-in;
 }
+.dark2-mode {
+    background-color: #6c727e !important;
+    color: white;
+    transition: all .3s ease-in;
+    border-radius: 5px;
+}
 .tooltip {
     position: relative;
     display: inline-block;

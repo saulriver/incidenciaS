@@ -35,6 +35,7 @@ class IncidentsController < ApplicationController
   # GET /incidents/1/edit
   def edit
     @incident = Incident.find(params[:id])
+    @incidentmanagements = @incident.incidentmanagements
     Rails.logger.debug("ID incident: #{@incident.id}")
     @incidentmanagement = Incidentmanagement.find_by(incident_id: @incident)
     Rails.logger.debug("ID incidentmanagement: #{@incidentmanagement.description}")

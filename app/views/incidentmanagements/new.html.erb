@@ -15,8 +15,8 @@
 
  <div class="custom-search-form">
   <%=form_tag(incidentmanagements_path, method: :get) do %>
-  <%=text_field_tag(:search, params[:search], placeholder: "Buscar por N° incidencia")%>
-<%end%>
+    <%=text_field_tag(:search, params[:search], placeholder: "Buscar por N° incidencia")%>
+  <%end%>
 </div><br/>
 
 <h5 class="text-left"><kbd>Listado reportes</kbd></h5>
@@ -31,30 +31,30 @@
 <!--botones de explicacion-->
 
 <div class="modal-content text-center">
-<div class="table-responsive">
-<table class="table">
-<thead>
-  <div class="row">
-    <tr class="success btn-info active justify-content-center">
-    <th colspan="3"><h5><b style="color: orange">Gestionar</b></h5></th>
-      <th><h6>N° incidencia</h6></th>
-      <th><h6>Criticidad</h6></th>
-      <th><h6>Cliente</h6></th>
-      <th><h6>Reporta</h6></th>
-      <th><h6>Área</h6></th>
-      <th><h6>Aplicación</h6></th>
-      <th><h6>Hrs/ANS</h6></th>
-      <th><h6>Hrs/Reporte</h6></th>
-      <th><h6>Descripción</h6></th>
-    </tr>
-  </div>
-</thead>
+  <div class="table-responsive">
+   <table class="table">
+    <thead>
+      <div class="row">
+        <tr class="success btn-info active justify-content-center">
+         <th colspan="3"><h5><b style="color: orange">Gestionar</b></h5></th>
+          <th><h6>N° incidencia</h6></th>
+          <th><h6>Criticidad</h6></th>
+          <th><h6>Cliente</h6></th>
+          <th><h6>Reporta</h6></th>
+          <th><h6>Área</h6></th>
+          <th><h6>Aplicación</h6></th>
+          <th><h6>Hrs/ANS</h6></th>
+          <th><h6>Hrs/Reporte</h6></th>
+          <th><h6>Descripción</h6></th>
+         </tr>
+      </div>
+  </thead>
 
   <% @incidentmanagements.each do |incidentmanagement| %>
 
   <tbody>
     <div class="row">
-      <tr class="text-center">
+      <tr class="text-center figure-caption">
         <td colspan="3"><%= link_to edit_incidentmanagement_path(incidentmanagement) do%>
          <%= image_tag "/img/gestionar_64.png", :title=>"Gestionar incidencia" %>
          <% end %>

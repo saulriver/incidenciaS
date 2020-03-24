@@ -24,7 +24,7 @@
         </div>
         </thead>
           <tbody>
-              <tr class="text-center">
+              <tr class="text-center figure-caption">
                 <td colspan="3"><kbd><%= @user.id %></kbd></td>
                 <td><%= @user.name %></td>
                 <td><%= @user.email %></td>
@@ -65,7 +65,7 @@
   
   <tbody>
   <% @userareas.each do |userarea| %>
-      <tr class="text-center">
+      <tr class="text-center figure-caption">
         <td colspan="3"><kbd><%= userarea.id %></kbd></td>
         <td><%= userarea.user.name %></td>
         <td><%= userarea.area.name %></td>

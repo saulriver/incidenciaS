@@ -26,9 +26,9 @@
           <th colspan="2"><h5><b style="color: orange">Ticket</b></h5></th>
           <th><h6>Aplicación</h6></th>
           <th><h6>Área</h6></th>
-          <th><h6>Gestiona</h6></th>
+          <th><h6>Operador</h6></th>
           <th><h6>ANS</h6></th>
-          <th><h6>Enviada</h6></th>
+          <th><h6>Reportada</h6></th>
           <th><h6>Descripción</h6></th>
           <th><h6>Archivo</h6></th>
           <th><h6>Estado</h6></th>
@@ -37,13 +37,17 @@
     </thead>
 
     <tbody>
-      <tr class="text-center">
+      <tr class="text-center figure-caption">
         <td colspan="2"><kbd><%= @incident.id%></kbd></td>
         <td><%= @incident.userapplication.applicationclient.application.name %></td>
         <td><%= @incident.area.name %></td>
         <td><%= @incidentmanagement.user.name %></td>
         <td><%= @incident.userapplication.applicationclient.servicelevel %>hrs</td>
-        <td><%= @incident.created_at%></td>
+        <td><%= localize (@incident.created_at.in_time_zone)%>
+          <p> Hace
+           <%= time_ago_in_words(@incident.created_at.in_time_zone)%>
+          </p>
+        </td>
         <td><%= @incident.description%></td>
         <td>
            <% if @incident.picture_url %>
@@ -52,13 +56,13 @@
             <% end %>
             <% end %>
          </td>
-         <td><%= @incidentmanagement.state%></td>
+         <td style="color:#E30840;" ><b><%= @incidentmanagement.state %></b></td>
          <td>
             <% if @incidentmanagement.state == "terminada" %> 
               <%= link_to aprobar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de aprobar esta incidencia?', remote: false } do %>
                   <%= image_tag "/img/estado_activo_24.png", :title=>"Aprobar" %>
               <% end %>
-            <%end%>|
+            <%end%>||
             <% if @incidentmanagement.state == "terminada" %> 
             <%= link_to rechazar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de rechazar esta incidencia?', remote: false } do %>
                 <%= image_tag "/img/estado_falso_24.png", :title=>"Rechazar" %>
@@ -73,7 +77,67 @@
 <!--tabla principal-->
 <br/>
 
-<!--tabla imagen reporte-->
+<!--tabla gestión-->
+<% @incidentmanagements.each do |incidentmanagement| %>
+  <h5 class="text-left"><kbd>Gestión</kbd></h5>
+  <div class="modal-content text-center">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+          <tr class="success btn-info active justify-content-center">
+            <th><h6>Operador</h6></th>
+            <th><h6>Descripción</h6></th>
+            <th><h6>Gestionada</h6></th>
+            <th><h6>Archivo</h6></th>
+            <th><h6>Estado</h6></th>
+          </tr>
+      </thead>
+  
+      <tbody>
+        <tr class="text-center figure-caption">
+           <td><%= incidentmanagement.user.name %></td>
+           <td><%= incidentmanagement.description %></td>
+           <td><%= localize (incidentmanagement.updated_at) %>
+             <p> Hace
+               <%= time_ago_in_words(incidentmanagement.updated_at) %>
+               </p>           
+           </td>
+           <td>
+               <%= link_to incidentmanagement.picture_url, :target => '_blank', alt: 'Documento' do %>
+                <%= image_tag "/img/gallery_24.png", :title=>"Ver" %>
+               <% end %>
+           </td>
+           <td>
+           <% if @incidentmanagement.state == "abierta" %>              
+             <p style="color:#2663E5;"><b>Abierto</b></p>
+             <%end%>
+             <% if @incidentmanagement.state == "gestionando" %>              
+                   <p style="color:#F9BF31;"><b>Gestionando</b></p>
+             <%end%>
+             <% if @incidentmanagement.state == "terminada" %>              
+               <p style="color:#C2B106;"><b>Terminada</b></p>
+             <%end%>
+             <% if @incidentmanagement.state == "rechazada" %>              
+               <p style="color:#c82333;"><b>Rechazada</b></p>
+             <%end%>
+             <% if @incidentmanagement.state == "aprobada" %>              
+               <p style="color:#0BB703;"><b>Aprobada</b></p>
+             <%end%>
+             <% if @incidentmanagement.state == "cerrada" %>
+               <p style="color:#E30840;"><b>Cerrado</b></p>
+               <%end%>
+          </td>
+         </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  <%end%>
+  </div>
+  <!--tabla gestión-->
+  </br>
+
+<!--tabla imagen reporte
 <div class="row">
 <div class="col-sm-7">
 <h5 class="text-left"><kbd>Archivo gestión incidencia</kbd></h5>
@@ -94,7 +158,7 @@
 </label>
 </div>
 </div>
-<!--tabla imagen-->
+tabla imagen-->
 
 <!--<div class="col-md-5">
    The Modal 
