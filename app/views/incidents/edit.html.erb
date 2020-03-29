@@ -4,24 +4,24 @@
 
 <!--tabla principal-->
 <div class="row">
-<div class="col-md-12">
- <div class="footer text-left">
-    <%= link_to 'Regresar', incidents_path, class: "btn btn-info" %>
-    <%= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
-  </div><br/>
+  <div class="col-md-12">
+    <div class="footer text-left">
+        <%= link_to 'Regresar', incidents_path, class: "btn btn-info" %>
+        <%= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
+      </div><br/>
 
-  <% flash.each do |name, msg| %>
-      <div class="alert alert-info alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <%= msg%>
-      </div>
-    <% end %>
-  
+    <% flash.each do |name, msg| %>
+        <div class="alert alert-info alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%= msg%>
+        </div>
+      <% end %>
+    
 <h5 class="text-left"><kbd>Incidencia reportada</kbd></h5>
 <div class="modal-content text-center">
-<div class="table-responsive">
-  <table class="table">
-    <thead>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
         <tr class="success btn-info active justify-content-center">
           <th colspan="2"><h5><b style="color: orange">Ticket</b></h5></th>
           <th><h6>Aplicación</h6></th>
@@ -29,12 +29,12 @@
           <th><h6>Operador</h6></th>
           <th><h6>ANS</h6></th>
           <th><h6>Reportada</h6></th>
-          <th><h6>Descripción</h6></th>
-          <th><h6>Archivo</h6></th>
+          <!--<th><h6>Descripción</h6></th>-->
+          <th><h6>Archivos</h6></th>
           <th><h6>Estado</h6></th>
           <th><h6>Acciones</h6></th>
         </tr>
-    </thead>
+     </thead>
 
     <tbody>
       <tr class="text-center figure-caption">
@@ -48,51 +48,74 @@
            <%= time_ago_in_words(@incident.created_at.in_time_zone)%>
           </p>
         </td>
-        <td><%= @incident.description%></td>
+        <!--<td><%= @incident.description%></td>-->
         <td>
-           <% if @incident.picture_url %>
-            <%= link_to @incident.picture_url, :target => '_blank', alt: 'Ver imagen' do %>
-              <%= image_tag "/img/gallery_24.png", :title=>"Ver" %>
+          <% if @incident.images %>
+           <%= link_to incident_path, alt: 'Ver imagen' do %>
+            <%= image_tag "/img/file_24.png", :title=>"Ver" do %>
+             <p>No tiene archivos adjuntos </p>
+             <% end %>
             <% end %>
-            <% end %>
+           <% end %>
          </td>
-         <td style="color:#E30840;" ><b><%= @incidentmanagement.state %></b></td>
-         <td>
+       <td style="color:#2663E5;" ><b><%= @incidentmanagement.state %></b></td>
+          <td>
             <% if @incidentmanagement.state == "terminada" %> 
               <%= link_to aprobar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de aprobar esta incidencia?', remote: false } do %>
-                  <%= image_tag "/img/estado_activo_24.png", :title=>"Aprobar" %>
-              <% end %>
-            <%end%>||
-            <% if @incidentmanagement.state == "terminada" %> 
+                <%= image_tag "/img/estado_activo_24.png", :title=>"Aprobar" %>
+               <% end %>
+              <%end%>||
+             <% if @incidentmanagement.state == "terminada" %> 
             <%= link_to rechazar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de rechazar esta incidencia?', remote: false } do %>
-                <%= image_tag "/img/estado_falso_24.png", :title=>"Rechazar" %>
+             <%= image_tag "/img/estado_falso_24.png", :title=>"Rechazar" %>
             <% end %>
           <%end%>
          </td>
        </tr>
     </tbody>
   </table>
-</div>
+ </div>
 </div>
 <!--tabla principal-->
+
 <br/>
+<!--Esto esta comentado tabla imagen reporte
+<div class="row">
+  <div class="col-sm-12">
+    <h5 class="text-left"><kbd>Archivo reporte incidencia</kbd></h5>
+      <div class="modal-content text-center">
+        <label class="form-group">
+          <tbody>
+            <br/>
+              <figure class="figure">
+                <% (0...@incident.images.count).each do |image| %>
+                  <%= image_tag(@incident.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+                  <%end%>
+              </figure>
+            <br/>
+          </tbody>
+       </label>
+     </div>
+   </div>
+ </div>
+tabla imagen Fin del comentado-->
 
 <!--tabla gestión-->
 <% @incidentmanagements.each do |incidentmanagement| %>
-  <h5 class="text-left"><kbd>Gestión</kbd></h5>
+
+<h5 class="text-left"><kbd>Gestión incidencia</kbd></h5>
   <div class="modal-content text-center">
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
           <tr class="success btn-info active justify-content-center">
             <th><h6>Operador</h6></th>
             <th><h6>Descripción</h6></th>
             <th><h6>Gestionada</h6></th>
-            <th><h6>Archivo</h6></th>
+            <th><h6>Archivos</h6></th>
             <th><h6>Estado</h6></th>
           </tr>
       </thead>
-  
       <tbody>
         <tr class="text-center figure-caption">
            <td><%= incidentmanagement.user.name %></td>
@@ -103,124 +126,116 @@
                </p>           
            </td>
            <td>
-               <%= link_to incidentmanagement.picture_url, :target => '_blank', alt: 'Documento' do %>
-                <%= image_tag "/img/gallery_24.png", :title=>"Ver" %>
+             <% if incidentmanagement.images %>
+              <%= link_to incidentmanagement_path, alt: 'Ver imagen' do %>
+               <%= image_tag "/img/file_24.png", :title=>"Ver imagen" %>
                <% end %>
-           </td>
+              <% end %>
+            </td>
            <td>
-           <% if @incidentmanagement.state == "abierta" %>              
-             <p style="color:#2663E5;"><b>Abierto</b></p>
-             <%end%>
-             <% if @incidentmanagement.state == "gestionando" %>              
-                   <p style="color:#F9BF31;"><b>Gestionando</b></p>
-             <%end%>
-             <% if @incidentmanagement.state == "terminada" %>              
-               <p style="color:#C2B106;"><b>Terminada</b></p>
-             <%end%>
-             <% if @incidentmanagement.state == "rechazada" %>              
-               <p style="color:#c82333;"><b>Rechazada</b></p>
-             <%end%>
-             <% if @incidentmanagement.state == "aprobada" %>              
-               <p style="color:#0BB703;"><b>Aprobada</b></p>
-             <%end%>
-             <% if @incidentmanagement.state == "cerrada" %>
-               <p style="color:#E30840;"><b>Cerrado</b></p>
-               <%end%>
-          </td>
-         </tr>
-      </tbody>
-    </table>
-  </div>
-  </div>
-  <%end%>
-  </div>
-  <!--tabla gestión-->
-  </br>
-
-<!--tabla imagen reporte
-<div class="row">
-<div class="col-sm-7">
-<h5 class="text-left"><kbd>Archivo gestión incidencia</kbd></h5>
-<div class="modal-content text-center">
-<label class="form-group">
-  <tbody>
-     <br/>
-       <figure class="figure">
-       <%= image_tag(@incidentmanagement.picture_url.to_s, class: 'figure-img img-fluid rounded') if @incidentmanagement.picture? %>
-         <% if @incidentmanagement.picture_url %>
-          <%= link_to @incidentmanagement.picture_url, :target => "_blank", alt:"Ver imagen" do %>
-            <p>Ver imagen</p>
-           <%end%>
-        <%end%>
-       </figure>
-       <br/>
-  </tbody>
-</label>
-</div>
-</div>
-tabla imagen-->
-
-<!--<div class="col-md-5">
-   The Modal 
-    <div class="modal-dialog" style="position: initial; right:14px; z-index:9999;">
-    <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+            <% if @incidentmanagement.state == "abierta" %>              
+              <p style="color:#2663E5;"><b>Abierto</b></p>
+              <%end%>
+              <% if @incidentmanagement.state == "gestionando" %>              
+                <p style="color:#F9BF31;"><b>Gestionando</b></p>
+              <%end%>
+              <% if @incidentmanagement.state == "terminada" %>              
+                <p style="color:#C2B106;"><b>Terminada</b></p>
+              <%end%>
+              <% if @incidentmanagement.state == "rechazada" %>              
+                <p style="color:#c82333;"><b>Rechazada</b></p>
+              <%end%>
+              <% if @incidentmanagement.state == "aprobada" %>              
+                <p style="color:#0BB703;"><b>Aprobada</b></p>
+              <%end%>
+              <% if @incidentmanagement.state == "cerrada" %>
+                <p style="color:#E30840;"><b>Cerrado</b></p>
+              <%end%>
+           </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-<!-- Modal body
-  <div class="modal-body">
-    <div class="modal-content tabcontent">
-       <div class="dialog kbd1">
-        <%comment= simple_form_for(@incident, html: { multipart: true }) do |f| %>
-        <%comment= f.error_notification %>
-        <%comment= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <%comment= f.hidden_field :incident_id, :value => @incident.id%>
-        <%comment= f.hidden_field :state, :value => true%>
+  </div>
+<%end%>
+<!--tabla gestión-->
+</br>
 
- <form>
-    <figcaption class="figure-caption">
-      <%comment= f.association :userapplication, collection: Userapplication.where(user_id: current_login.id).includes(:applicationclient), label_method: :lista_appclient %>
-    </figcaption>
+<!--Esto esta comentado tabla imagen reporte
+<div class="row">
+  <div class="col-sm-12">
+    <h5 class="text-left"><kbd>Archivo gestión incidencia</kbd></h5>
+      <div class="modal-content text-center">
+        <label class="form-group">
+          <tbody>
+              <br/>
+                <figure class="figure">
+                  <% (0...@incidentmanagement.images.count).each do |image| %>
+                    <%= image_tag(@incidentmanagement.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+                  <%end%>
+                </figure>
+              <br/>
+            </tbody>
+          </label>
+        </div>
+      </div>
+    </div>
+tabla imagen Fin del comentado-->
 
-    <figcaption class="figure-caption">
-       <%comment= f.association :area %>
-    </figcaption>
+<!--Esto esta comentado The Modal 
+<div class="col-md-5">
+  <div class="modal-dialog" style="position: initial; right:14px; z-index:9999;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+        </div>
+        <!-- comentado Modal body
+          <div class="modal-body">
+            <div class="modal-content tabcontent">
+              <div class="dialog kbd1">
+                <%comment= simple_form_for(@incident, html: { multipart: true }) do |f| %>
+                <%comment= f.error_notification %>
+                <%comment= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+                <%comment= f.hidden_field :incident_id, :value => @incident.id%>
+                <%comment= f.hidden_field :state, :value => true%>
 
-    <figcaption class="figure-caption">
-       <%comment= f.association :criticality %>
-    </figcaption>
+                <form>
 
-    <figcaption class="figure-caption">
-        <%comment= f.label :state %>
-        <%comment= f.select :state, options_for_select([['Activo', true]]) %>
-    </figcaption>
+                  <figcaption class="figure-caption">
+                    <%comment= f.association :userapplication, collection: Userapplication.where(user_id: current_login.id).includes(:applicationclient), label_method: :lista_appclient %>
+                  </figcaption>
 
-    <label></label>
-    <figcaption class="figure-caption">
-      <%comment= f.input :description, placeholder: 'Describe la incidencia claramente.' %>
-    </figcaption>
-    
-     <figcaption class="figure-caption">
-      <%comment= f.label :picture %>
-     </figcaption>
+                  <figcaption class="figure-caption">
+                    <%comment= f.association :area %>
+                  </figcaption>
 
-     <figcaption class="figure-caption">
-       <%comment= f.file_field :picture %>
-       <%comment= f.hidden_field :picture_cache %>
-      </figcaption>
-    
-  <figcaption class="figure-caption">
-     <%=f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_login.id}" }%>
-  </figcaption>
+                  <figcaption class="figure-caption">
+                    <%comment= f.association :criticality %>
+                  </figcaption>
 
-  <%comment= f.submit 'Actualizar', method: :edit, data: { confirm: 'Desea actualizar la incidencia' }, class:"btn btn-info btn-md"%>
- 
- </form>
- <% end %>
-     </div>
-   </div>
-</div>
-</div>
-</div>
-</div>
-</div>-->
+                  <figcaption class="figure-caption">
+                      <%comment= f.label :state %>
+                      <%comment= f.select :state, options_for_select([['Activo', true]]) %>
+                  </figcaption>
+
+                    <label></label>
+
+                  <figcaption class="figure-caption">
+                    <%comment= f.input :description, placeholder: 'Describe la incidencia claramente.' %>
+                  </figcaption>
+                
+                  <figcaption class="figure-caption">
+                    <%=f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_login.id}" }%>
+                  </figcaption>
+
+                  <%comment= f.submit 'Actualizar', method: :edit, data: { confirm: 'Desea actualizar la incidencia' }, class:"btn btn-info btn-md"%>
+            
+                </form>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>Fin del comentado-->

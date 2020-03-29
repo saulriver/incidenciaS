@@ -1,5 +1,5 @@
 <br/><br/>
-<h1 style="color: #6c757d;">Asignar tareas a usuarios operadores</h1>
+<h1 style="color: #6c757d;">Asignar incidencia</h1>
 <hr>
 
 <div class="row">
@@ -14,8 +14,10 @@
       <%= msg%>
     </div>
   <% end %>
+
+  </br>
   
-  <h5 class="text-left"><kbd>Listado incidencias para asignar</kbd></h5>
+  <h5 class="text-left"><kbd>Listado incidencia para asignar</kbd></h5>
 <div class="row">
     <div class="col-sm-8">
         <table class="table dark2-mode">
@@ -40,11 +42,15 @@
                 <td><%= @incidentmanagement.incident.user.name %></td>
                 <td><%= @incidentmanagement.incident.criticality.name %></td>
                 <td><%= @incidentmanagement.incident.userapplication.applicationclient.servicelevel %>hrs</td>
-                <td><%= @incidentmanagement.incident.created_at.in_time_zone %></td>
+                <td><%= localize (@incidentmanagement.incident.created_at) %>
+                  <p> Hace
+                    <%= time_ago_in_words(@incidentmanagement.incident.created_at)%>
+                  </p>
+                </td>
                 <td><%= @incidentmanagement.incident.description %></td>
                 <td>      
                     <% if @incidentmanagement.state == "abierta" %>              
-                        <p style="color:#c82333;"><b>Abierta</b></p>
+                        <p style="color:rgb(23, 162, 184);"><b>Abierta</b></p>
                     <%end%>
                     <% if @incidentmanagement.state == "gestionando" %>              
                             <p style="color:#c82333;"><b>Gestionando</b></p>
@@ -64,14 +70,14 @@
     </table>
 </div>
 
-         <div class="col-sm-4">
-            <!-- The Modal -->
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                <h5 class="modal-title"><kbd>Asignar</kbd></h5>
-                </div>
+<div class="col-sm-4">
+    <!-- The Modal -->
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title"><kbd>Asignar</kbd></h5>
+           </div>
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="modal-content tabcontent">

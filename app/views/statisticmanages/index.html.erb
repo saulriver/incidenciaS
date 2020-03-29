@@ -1,13 +1,19 @@
 <br/><br/>
-<h1 style="color: #6c757d;">Estadistica</h1>
+<h1 style="color: #6c757d;">Estadistica de incidencias</h1>
 <hr>
 <div class="container dark1-mode">
  <div class="row">
-    <h1 style="color: #6c757d;">Incidencias
+    <h1 style="color: #6c757d;">Incidencias por usuario
       <%= pie_chart @incidentmanagements, prefix: "Total reporte: " %></h1>
      <hr> 
     <h1 style="color: #6c757d;">Gestión por área
       <%= column_chart @areas, prefix: "Total: " %></h1>
      <hr>
+    <h1 style="color: #6c757d;">Gestión por aplicación
+     <%= pie_chart @applications, prefix: "Total: " %></h1>
+     <hr>
+    <h1 style="color: #6c757d;">Gestión por cliente
+      <%= bar_chart @clients, prefix: "Total: " %></h1>
+      <hr>
  </div>
 </div>

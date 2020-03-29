@@ -112,72 +112,88 @@
 <!--tabla imagen reporte-->
 <div class="row">
   <div class="col-md-7">
-    <h5 class="text-left"><kbd>Imagén reporte incidencia</kbd></h5>
+    <h5 class="text-left"><kbd>Archivo reporte incidencia</kbd></h5>
       <div class="modal-content text-center">
         <label class="form-group">
           <%comment= link_to edit_incidentmanagement_path(@incidentmanagement) do %>
             <%= image_tag "/img/edit_24.png", :title=>"Editar" %><% end %>
               <tbody><br/>
-                <figure class="figure">
-                  <%= image_tag(@incidentmanagement.incident.picture_url.to_s, class: 'figure-img img-fluid rounded', alt: 'Archivo') if @incidentmanagement.incident.picture? %>
-                </figure><br/>
-                  
-                <figure class="figure">
-                  <%= link_to "Descargar archivo", @incidentmanagement.incident.picture_url.to_s, :target => '_blank', alt: 'Archivo' %>
+               <!--<figure class="figure">
+                  <% (0...@incidentmanagement.incident.images.count).each do |image| %>
+                  <%= image_tag(@incidentmanagement.incident.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+                  <%end%>
+                  </figure>-->
+                  <br/>
+                  <figure class="figure">
+                    <% (0...@incidentmanagement.incident.images.count).each do |image| %>
+                      <%= link_to @incidentmanagement.incident.images[image] do %>
+                      <%= image_tag "/img/file_128.png", :title=>"Ver documento" %>
+                    <%end%>
+                  <%end%>
                 </figure>
               </tbody>
           </label>
+       </div>
     </div>
-</div>
 <!--tabla imagen-->
+</br>
 
 <!--tabla editar-->
-<div class="col-sm-5">
+<div class="col-md-5 col-sm-6 col-xs-12">
   <!-- The Modal -->
     <div class="modal-dialog">
       <div class="modal-content">
- <!-- Modal Header -->
-    <div class="modal-header">
-      <h5 class="modal-title"><kbd>Gestionar incidencia</kbd></h5>
-    </div>
-      <!-- Modal body -->
-        <div class="modal-body">
-          <div class="modal-content tabcontent">
-              <div class="dialog">
-              <%= simple_form_for(@incidentmanagement, html: { multipart: true }) do |f| %>
-              <%= f.error_notification %>
-              <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-          
-          <form class="form-signin">
-            <figcaption class="figure-caption">
-                  <%=f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_login.id}" }%>
-              </figcaption>
+      <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title"><kbd>Gestionar incidencia</kbd></h5>
+        </div>
+          <!-- Modal body -->
+            <div class="modal-body">
+              <div class="modal-content tabcontent">
+                  <div class="dialog">
+                  <%= simple_form_for(@incidentmanagement, html: { multipart: true }) do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+            
+                <form class="form-signin">
 
-                <figcaption class="figure-caption">
-                  <%= f.label :picture %>
-                </figcaption>
-                <%= f.file_field :picture, class: 'form-control'%>
-
-                  <label></label>
                     <figcaption class="figure-caption">
-                      <%= f.input :description %>
+                        <%=f.input :user_id, :as => :hidden, :input_html => { :value => "#{current_login.id}" }%>
                     </figcaption>
 
-                    <figure class="figure">
-                      <%= image_tag(@incidentmanagement.picture_url, class: 'figures-img index img-fluid rounded' ) if @incidentmanagement.picture? %>
-                    </figure>
-                    
-                  <%= f.hidden_field :picture_cache %>
-                  <%= f.submit "Enviar descripción", method: :edit %>
-                  
-          </form>
-         <% end %>
+                      <figcaption class="figure-caption">
+                          <%= f.label :picture %>
+                          <%= f.file_field :images, multiple: true, class: 'form-control' %>
+                        </figcaption>
+
+                        <br/>
+                          <figure class="figure">
+                            <% (0...@incidentmanagement.images.count).each do |image| %>
+                              <%= link_to @incidentmanagement.images[image] do %>
+                              <%= image_tag "/img/file2_128.png", :title=>"Ver documento" %>
+                            <%end%>
+                          <%end%>
+                        </figure>
+
+                        <label></label>
+                      <figcaption class="figure-caption">
+                        <%= f.input :description %>
+                      </figcaption>
+                      <!--<figure class="figure">
+                        <% (0...@incidentmanagement.images.count).each do |image| %>
+                          <%= image_tag(@incidentmanagement.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+                        <%end%>
+                    </figure>-->
+                      <%= f.submit "Enviar descripción", method: :edit %>
+                  </form>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
-       </div>
       </div>
-     </div>
     </div>
-   </div>
   </div>
+</div>
 <!--tabla editar-->
 

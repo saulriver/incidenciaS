@@ -25,7 +25,7 @@
         <% if current_login.user.role_id == 3 %>
           <li class="nav-item"><%= link_to "Administración", vistaroles_path, class:"nav-link" %></li>
           <li class="nav-item"><%= link_to "Configuración", vistaclientes_path, class:"nav-link" %></li>
-          <li class="nav-item"><a class="nav-link" href="#">Consultas</a></li>
+          <li class="nav-item"><%= link_to "Consultas", consults_index_path, class:"nav-link" %></li>
           <li class="nav-item"><a class="nav-link" href="#">Reportes</a></li>
         <% end %>
         <% if current_login.user.role_id == 2%><li class="nav-item"><%= link_to "Reporte Incidencias", vistareportes_path, class:"nav-link" %></li><%end%>
@@ -36,7 +36,7 @@
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <% if login_signed_in? %>
-                <strong><%= current_login.username %></strong>
+                <strong><%= current_login.user.email.split("@")[0].capitalize %></strong>
             <%end%>
         </a>
 					<div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="navbarDropdown">

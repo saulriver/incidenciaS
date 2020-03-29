@@ -12,7 +12,7 @@
         <%= msg%>
       </div>
     <% end %>
-    
+
  <div class="custom-search-form">
    <%= form_tag(incidentmanagements_path, method: :get) do %>
     <%= text_field_tag(:search, params[:search], placeholder: "Buscar por N° incidencia")%>
@@ -49,7 +49,7 @@
       <th><h6><kbd class="btn-group btn btn-success btn-sm">B</kbd></h6></th>
       <th><h6>Tiempo gestión</h6></th>
       <th><h6>Descripción</h6></th>
-      <th><h6>Archivos</h6></th>
+      <!--<th><h6>Archivos</h6></th>-->
       <th><h6>Acciones</h6></th>
     </tr>
   </div>
@@ -97,11 +97,11 @@
             </p>
         </td>
         <td><%= incidentmanagement.incident.description %></td>
-        <td><%= link_to incidentmanagement_path(incidentmanagement.id) do %>
+        <!--<td><%= link_to incidentmanagement_path(incidentmanagement.id) do %>
             <%= image_tag "/img/gallery_24.png", :title=>"Archivos" %>
              <% end %>
-          </td>
-          <td><%= incidentmanagement.state %></td>
+          </td>-->
+          <td style="color:#0BB703;"><b><%= incidentmanagement.state %></td>
         
        </tr>
        
@@ -112,5 +112,5 @@
 </div>
 </div>
 <div id="spacing">
-<%=   paginate  (@incidentmanagements) %>
+<%= paginate  (@incidentmanagements) %>
 </div>

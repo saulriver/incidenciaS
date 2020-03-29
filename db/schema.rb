@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_232029) do
+ActiveRecord::Schema.define(version: 2020_03_29_164855) do
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "applicationclients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
@@ -69,8 +90,10 @@ ActiveRecord::Schema.define(version: 2020_03_23_232029) do
   end
 
   create_table "consults", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "incidentmanagement_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["incidentmanagement_id"], name: "index_consults_on_incidentmanagement_id"
   end
 
   create_table "criticalities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -85,15 +108,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_232029) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "incidentfiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "incident_id"
-    t.string "filetype"
-    t.boolean "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["incident_id"], name: "index_incidentfiles_on_incident_id"
-  end
-
   create_table "incidentmanagements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "incident_id"
@@ -102,7 +116,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_232029) do
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "picture"
     t.datetime "Tlevel"
     t.datetime "Littletime"
     t.datetime "Overtime"
@@ -120,7 +133,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_232029) do
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "picture"
     t.index ["area_id"], name: "index_incidents_on_area_id"
     t.index ["criticality_id"], name: "index_incidents_on_criticality_id"
     t.index ["user_id"], name: "index_incidents_on_user_id"
@@ -136,15 +148,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_232029) do
     t.string "username", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "managefiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "incidentmanagement_id"
-    t.string "filetype"
-    t.boolean "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["incidentmanagement_id"], name: "index_managefiles_on_incidentmanagement_id"
   end
 
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -199,19 +202,19 @@ ActiveRecord::Schema.define(version: 2020_03_23_232029) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "applicationclients", "applications"
   add_foreign_key "applicationclients", "clients"
   add_foreign_key "applicationclients", "users"
   add_foreign_key "applicationoperators", "applications"
   add_foreign_key "applicationoperators", "users"
-  add_foreign_key "incidentfiles", "incidents"
+  add_foreign_key "consults", "incidentmanagements"
   add_foreign_key "incidentmanagements", "incidents"
   add_foreign_key "incidentmanagements", "users"
   add_foreign_key "incidents", "areas"
   add_foreign_key "incidents", "criticalities"
   add_foreign_key "incidents", "userapplications"
   add_foreign_key "incidents", "users"
-  add_foreign_key "managefiles", "incidentmanagements"
   add_foreign_key "userapplications", "applicationclients"
   add_foreign_key "userapplications", "users"
   add_foreign_key "userareas", "areas"

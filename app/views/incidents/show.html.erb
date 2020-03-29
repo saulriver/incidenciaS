@@ -4,7 +4,7 @@
 
 <!--tabla principal-->
 <div class="row">
-<div class="col-sm-6">
+<div class="col-md-12 col-sm-6 col-xs-2">
  <div class="footer text-left">
     <%= link_to 'Regresar', edit_incident_path(@incident), class: "btn btn-info" %>
   </div><br/>
@@ -17,20 +17,31 @@
     <% end %>
 
 <!--tabla imagen gestion-->
-<h5 class="text-left"><kbd>Imagén reporte incidencia</kbd></h5>
-<div class="modal-content text-center">
-<label class="form-group">
+<h5 class="text-left"><kbd>Archivos reporte incidencia</kbd></h5>
+  <div class="modal-content text-center">
+    <label class="form-group">
       &nbsp; &nbsp;
        <%comment= link_to edit_incident_path(@incident) do %>
         <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
          <% end %>
-  <tbody>
-     <br/><br/>
+      <tbody>
+        <br/><br/>
+       <!--<figure class="figure">
+          <% (0...@incident.images.count).each do |image| %>
+            <%= image_tag(@incident.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+          <%end%>
+        </figure>-->
+        <br/><br/>
        <figure class="figure">
-         <%= image_tag(@incident.picture_url, class: 'figure-img img-fluid rounded', alt: 'Image') if @incident.picture? %>
-       </figure>
-  </tbody>
-</label>
-</div>
-</div>
+            <% (0...@incident.images.count).each do |image| %>
+              <%= link_to @incident.images[image] do %>
+              <%= image_tag "/img/file_128.png", :title=>"Ver documento" %>
+            <%end%>
+          <%end%>
+        </figure>
+
+     </tbody>
+    </label>
+   </div>
+ </div>
 <!--tabla imagen-->

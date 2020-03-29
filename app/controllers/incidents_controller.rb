@@ -3,7 +3,7 @@ class IncidentsController < ApplicationController
   before_action :authenticate_login!
   before_action :authenticate_role_user
   before_action :set_incident, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /incidents
   # GET /incidents.json
   def index
@@ -15,21 +15,18 @@ class IncidentsController < ApplicationController
       # flash[:success] = "Busqueda correctamente"
       # else
       #   flash[:alert] = "Problemas con la grabación"
-      @incidents = Incident.joins(:incidentmanagements).where("incidentmanagements.user_id = #{current_login.user_id}").order("incidentmanagements.user_id DESC").page(params[:page]).per(5)
-      @incident.picture     
+      @incidents = Incident.joins(:incidentmanagements).where("incidentmanagements.user_id = #{current_login.user_id}").order("incidentmanagements.user_id DESC").page(params[:page]).per(5)    
     end
   end
 
   # GET /incidents/1
   # GET /incidents/1.json
   def show
-    @incident.picture
   end
 
   # GET /incidents/new
   def new
     @incident = Incident.new
-    @incident.picture
   end
 
   # GET /incidents/1/edit
@@ -39,7 +36,6 @@ class IncidentsController < ApplicationController
     Rails.logger.debug("ID incident: #{@incident.id}")
     @incidentmanagement = Incidentmanagement.find_by(incident_id: @incident)
     Rails.logger.debug("ID incidentmanagement: #{@incidentmanagement.description}")
-    @incident.picture
   end
 
 
@@ -62,10 +58,10 @@ class IncidentsController < ApplicationController
         
         respond_to do |format|
             if @incidentmanagement.save
-            format.html { redirect_to new_incident_path(@incidentmanagement), info: 'Incident was successfully created.' }
+            format.html { redirect_to new_incident_path(@incidentmanagement), info: 'La incidencia se creó con éxito.' }
             format.json { render :show, status: :created, location: @incidentmanagement }
           else
-            format.html { render :new, info: 'Incident was successfully updated.' }
+            format.html { render :new, info: 'La incidencia se actualizó correctamente.' }
             format.json { render json: @incidentmanagement.errors, status: :unprocessable_entity }
           end
         end
@@ -77,7 +73,7 @@ class IncidentsController < ApplicationController
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        format.html { render :edit, info: 'Incident was successfully updated.' }
+        format.html { render :edit, info: 'La incidencia se actualizó correctamente.' }
         format.json { render :edit, status: :ok, location: @incident }
       else
         format.html { render :edit }
@@ -91,7 +87,7 @@ class IncidentsController < ApplicationController
   def destroy
     @incident.destroy
     respond_to do |format|
-      format.html { redirect_to incidents_url, danger: 'Incident was successfully destroyed.' }
+      format.html { redirect_to incidents_url, danger: 'La incidencia fue destruida exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -163,6 +159,13 @@ class IncidentsController < ApplicationController
        
   end
 
+  private def set_time_zone
+    if logged_in?
+       Time.use_zone(current_login.user.time_zone) { yield }
+    else
+       yield
+    end
+ end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -172,7 +175,7 @@ class IncidentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def incident_params
-      params.require(:incident).permit(:user_id, :area_id, :userapplication_id, :criticality_id, :datereport, :description, :state, :application_id, :applicationclient_id, :picture, :picture_url, :picture_identifier, :page, :search)
+      params.require(:incident).permit(:user_id, :area_id, :userapplication_id, :criticality_id, :datereport, :description, :state, :application_id, :applicationclient_id, :page, :search, images:[])
     end
 
     def authenticate_role_user

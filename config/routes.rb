@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   
 
+  get 'consults/index'
+  
   root to: "welcome#index"
   get 'welcome/index'
-  resources :managefiles
   resources :incidentmanagements
-  resources :incidentfiles
   resources :incidents
   resources :criticalities
   resources :applicationoperators

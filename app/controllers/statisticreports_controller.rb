@@ -3,12 +3,21 @@ class StatisticreportsController < ApplicationController
     before_action :authenticate_role_user
     before_action :set_statisticreport, only: [:index]
 
-    def index
-      @incidents = Incident.joins(userapplication: {applicationclient: :application})
-      .where("incidents.user_id = #{current_login.user.id}")
-      .group(:name).count
+  def index
+    @incidents = Incident.joins({userapplication: :user})
+    .where("incidents.user_id = #{current_login.user.id}")
+    .group(:name).count
 
-  end
+    @applications = Incident.joins(userapplication: {applicationclient: :application})
+    .where("incidents.user_id = #{current_login.user.id}")
+    .group(:name).count
+
+    @areas = Incident.joins(:area)
+    .where("incidents.user_id = #{current_login.user.id}")
+    .group(:name).count
+
+    #@incidentmanagement.state == "cerrada"
+   end
 
 
   def show

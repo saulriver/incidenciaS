@@ -27,19 +27,16 @@ class IncidentmanagementsController < ApplicationController
   # GET /incidentmanagements/1
   # GET /incidentmanagements/1.json
   def show
-    @incidentmanagement.picture
   end
 
   # GET /incidentmanagements/new
   def new
     @incidentmanagements = Incidentmanagement.where("incidentmanagements.user_id = #{current_login.id}").order("incidentmanagements.id DESC").page(params[:page]).per(5)
-
   end
 
   # GET /incidentmanagements/1/edit
   def edit
      @incidentmanagement = Incidentmanagement.find(params[:id])
-     @incidentmanagement.picture
   end
 
   # POST /incidentmanagements
@@ -94,7 +91,7 @@ class IncidentmanagementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def incidentmanagement_params
-      params.require(:incidentmanagement).permit(:user_id, :incident_id, :datereport, :description, :state, :picture, :picture_identifier, :search, :page, :Tlevel, :Littletime, :Overtime)
+      params.require(:incidentmanagement).permit(:user_id, :incident_id, :datereport, :description, :state, :search, :page, :Tlevel, :Littletime, :Overtime, images:[])
     end
 
     def authenticate_role_user

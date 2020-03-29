@@ -49,6 +49,7 @@ gem 'rails-i18n'
 gem 'kaminari-i18n', '~> 0.5.0'
 gem "devise"
 gem 'coffee-script-source', '1.8.0'
+gem 'mini_magick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -79,8 +80,6 @@ gem 'jquery-rails'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'kaminari-bootstrap'
 gem "font-awesome-rails"
-gem 'carrierwave', '~> 2.0', '>= 2.0.2'
-gem 'mini_magick'
 gem 'jquery-fileupload-rails', '~> 1.0'
 gem 'chartkick', '~> 3.3', '>= 3.3.1'
 gem 'faker', '~> 2.10', '>= 2.10.1'

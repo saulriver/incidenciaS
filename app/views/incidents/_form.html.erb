@@ -55,10 +55,9 @@
     </figcaption>
     </div>
 
-   <div class="center" id="picture">
+   <div class="center">
     <figcaption class="figure-caption">
-         <%= f.file_field :picture %>
-         <%= f.hidden_field :picture_cache %>
+    <%= f.file_field :images, multiple: true, class:"form-control" %>
      </figcaption>
    </div>
 

@@ -14,13 +14,13 @@
     <% end %>
 
  <div class="custom-search-form">
-  <%=form_tag(incidentmanagements_path, method: :get) do %>
+  <%=form_tag(new_incidentmanagement_path, method: :get) do %>
     <%=text_field_tag(:search, params[:search], placeholder: "Buscar por N° incidencia")%>
   <%end%>
 </div><br/>
 
-<h5 class="text-left"><kbd>Listado reportes</kbd></h5>
 
+<h5 class="text-left"><kbd>Listado reportes</kbd></h5>
 <!--botones de explicacion-->   
         <div class="text-left">
           <kbd class="btn-group btn btn-danger btn-sm", title="Poco tiempo" >P</kbd>
