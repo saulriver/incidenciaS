@@ -1,4 +1,6 @@
 class ApplicationsController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_application, only: [:show, :edit, :update, :destroy]
 
   # GET /applications
@@ -28,7 +30,7 @@ class ApplicationsController < ApplicationController
 
     respond_to do |format|
       if @application.save
-        format.html { redirect_to applications_path(@application), info: 'Application was successfully created.' }
+        format.html { redirect_to applications_path(@application), info: 'La aplicación fue creada con éxito.' }
         format.json { render :show, status: :created, location: @application }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class ApplicationsController < ApplicationController
   def update
     respond_to do |format|
       if @application.update(application_params)
-        format.html { redirect_to applications_path(@application), success: 'Application was successfully updated.' }
+        format.html { redirect_to applications_path(@application), success: 'La aplicación se actualizó con éxito.' }
         format.json { render :show, status: :ok, location: @application }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class ApplicationsController < ApplicationController
   def destroy
     @application.destroy
     respond_to do |format|
-      format.html { redirect_to applications_url, danger: 'Application was successfully destroyed.' }
+      format.html { redirect_to applications_url, danger: 'La aplicación fue destruida con éxito.' }
       format.json { head :no_content }
     end
   end
@@ -71,4 +73,11 @@ class ApplicationsController < ApplicationController
     def application_params
       params.require(:application).permit(:name, :state, :page)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+    
 end

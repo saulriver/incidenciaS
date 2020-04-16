@@ -1,5 +1,5 @@
 class IncidentsController < ApplicationController
-  protect_from_forgery except: :index
+  #protect_from_forgery except: :index
   before_action :authenticate_login!
   before_action :authenticate_role_user
   before_action :set_incident, only: [:show, :edit, :update, :destroy]
@@ -87,7 +87,7 @@ class IncidentsController < ApplicationController
   def destroy
     @incident.destroy
     respond_to do |format|
-      format.html { redirect_to incidents_url, danger: 'La incidencia fue destruida exitosamente.' }
+      format.html { redirect_to incidents_url, info: 'La incidencia fue destruida exitosamente.' }
       format.json { head :no_content }
     end
   end
@@ -159,13 +159,13 @@ class IncidentsController < ApplicationController
        
   end
 
-  private def set_time_zone
-    if logged_in?
-       Time.use_zone(current_login.user.time_zone) { yield }
-    else
-       yield
-    end
- end 
+  #private def set_time_zone
+   # if logged_in?
+    #   Time.use_zone(current_login.user.time_zone) { yield }
+    #else
+    #   yield
+    #end
+ #end 
 
   private
     # Use callbacks to share common setup or constraints between actions.

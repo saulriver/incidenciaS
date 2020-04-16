@@ -11,8 +11,10 @@
   
 <% flash.each do |name, msg| %>
       <div class="alert alert-info alert-dismissible">
+      <h5>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <%= msg%>
+        </h5>
       </div>
     <% end %>
 
@@ -25,21 +27,20 @@
         <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
          <% end %>
       <tbody>
-        <br/><br/>
+        <br/>
        <!--<figure class="figure">
           <% (0...@incident.images.count).each do |image| %>
-            <%= image_tag(@incident.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+            <%= link_to @incident.images[image] do %>
+            <%= image_tag "/img/file_128.png", :title=>"Ver documento" %>
           <%end%>
+        <%end%>
         </figure>-->
-        <br/><br/>
+        <br/>
        <figure class="figure">
             <% (0...@incident.images.count).each do |image| %>
-              <%= link_to @incident.images[image] do %>
-              <%= image_tag "/img/file_128.png", :title=>"Ver documento" %>
+              <%= image_tag(@incident.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
             <%end%>
-          <%end%>
         </figure>
-
      </tbody>
     </label>
    </div>

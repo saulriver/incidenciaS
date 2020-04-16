@@ -3,15 +3,17 @@
 <hr></br>
 <!--<input type="date" />-->
 
+<h5 style="color: #6c757d;">Ingresa fecha</h5>
 <%= form_tag consults_index_path, :method => :get do %>
       <!--<%= text_field_tag  :incidentmanagement, params[:incidentmanagement]%>-->
         <%= date_field_tag :incidentmanagement, params[:created_at] %>
       <%= submit_tag "Buscar", created_at: nil %>
     <% end %>
 
+  <h5 style="color: #6c757d;">Tabla de consulta por fechas</h5>
    <div class="modal-content text-center">
      <div class="table-responsive">
-       <table class="table">
+       <table class="table table-defaul table-hover">
         <thead>
           <div class="row">
             <tr class="success btn-info active justify-content-center">
@@ -32,7 +34,7 @@
         <tbody>
           <div class="row">
             <tr class="justify-content-center figure-caption">
-                <td colspan="3"><kbd><%= incidentmanagement.incident.id %></kbd></td>
+                <td colspan="3"><h6><kbd><%= incidentmanagement.incident.id %></kbd></h6></td>
                 <td><%= incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
                 <td><%= incidentmanagement.incident.area.name %></td>
                 <td><%= incidentmanagement.incident.userapplication.applicationclient.servicelevel %>Hrs</td>

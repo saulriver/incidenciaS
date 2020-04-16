@@ -9,7 +9,7 @@
      <h5 class="text-left"><kbd>Usuario</kbd></h5>
   <div id="Nservicios" class="modal-content text-center tabcontent">
     <div class="table-responsive">
-     <table class="table">
+     <table class="table table-default table-hover">
       <thead>
      <div class="row">
      <tr class="alert alert-secondary justify-content-center">
@@ -24,7 +24,7 @@
         </thead>
           <tbody>          
               <tr class="text-center figure-caption">
-                <td colspan="3"><kbd><%= @user.id %></kbd></td>
+                <td colspan="3"><h6><kbd><%= @user.id %></kbd></h6></td>
                 <td><%= @user.name %></td> 
                 <td><%= @user.username %></td> 
                 <td><%= @user.role.name %></td>
@@ -51,7 +51,7 @@
 <h5 class="text-left"><kbd>Listado usuario operador</kbd></h5>
 <div id="Oaplicaciones" class="modal-content text-center tabcontent">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-default table-hover">
   <thead>
     <tr class="alert alert-secondary justify-content-center">
       <th colspan="3">Id</th>
@@ -67,7 +67,7 @@
 
   <tbody>    
       <tr class="text-center figure-caption">
-        <td colspan="3"><kbd><%= applicationoperator.id %></kbd></td>
+        <td colspan="3"><h6><kbd><%= applicationoperator.id %></kbd></h6></td>
         <td><%= applicationoperator.user.name %></td>
         <td><%= applicationoperator.application.name %></td>
         <td>

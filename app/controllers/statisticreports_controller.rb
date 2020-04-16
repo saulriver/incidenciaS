@@ -7,7 +7,7 @@ class StatisticreportsController < ApplicationController
     @incidents = Incident.joins({userapplication: :user})
     .where("incidents.user_id = #{current_login.user.id}")
     .group(:name).count
-
+    
     @applications = Incident.joins(userapplication: {applicationclient: :application})
     .where("incidents.user_id = #{current_login.user.id}")
     .group(:name).count
@@ -15,6 +15,14 @@ class StatisticreportsController < ApplicationController
     @areas = Incident.joins(:area)
     .where("incidents.user_id = #{current_login.user.id}")
     .group(:name).count
+
+    @incidentsmonths = Incident.joins({userapplication: :user})
+    .where("incidents.user_id = #{current_login.user.id}")
+    .group_by_month(:created_at, format: "%B %Y").count
+
+    @incidentsdays = Incident.joins({userapplication: :user})
+    .where("incidents.user_id = #{current_login.user.id}")
+    .group_by_day(:created_at, format: "%Y %B %d %A" ).count
 
     #@incidentmanagement.state == "cerrada"
    end

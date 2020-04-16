@@ -5,12 +5,23 @@
     <div class="footer">
       <%= link_to 'Nuevo', new_application_path, class: "btn btn-info" %>
       <%= link_to "Menú", vistaclientes_path, class:"btn btn-info" %>
-    </div><br/>
+    </div>
+    
+    <br/>
+    
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-info alert-dismissible">
+      <h5>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= msg%>
+        </h5>
+      </div>
+    <% end %>
     
 <h5 class="text-left"><kbd>Listado aplicación</kbd></h5>
 <div id="Aplicaciones" class="modal-content text-center tabcontent">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-default table-hover">
   <thead>
   <div class="row">
     <tr class="alert alert-secondary justify-content-center">
@@ -27,7 +38,7 @@
   <tbody>
     <div class="row">
       <tr class="text-center figure-caption">
-        <td colspan="3"><kbd><%= application.id %></kbd></td>
+        <td colspan="3"><h6><kbd><%= application.id %></kbd></h6></td>
         <td><%= application.name %></td>
         <td>
           <% if application.state %>           

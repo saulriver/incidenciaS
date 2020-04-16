@@ -3,7 +3,7 @@
   <hr>
 
 <div class="footer text-left">
-    <%= link_to 'Menú', vistagestions_path, class: "btn btn-info" %>
+    <%comment= link_to 'Menú', vistagestions_path, class: "btn btn-info" %>
   </div><br/>
 
 <% flash.each do |name, msg| %>
@@ -32,7 +32,7 @@
 
 <div class="modal-content text-center">
   <div class="table-responsive">
-   <table class="table">
+   <table class="table table-default table-hover">
     <thead>
       <div class="row">
         <tr class="success btn-info active justify-content-center">
@@ -41,10 +41,11 @@
           <th><h6>Criticidad</h6></th>
           <th><h6>Cliente</h6></th>
           <th><h6>Reporta</h6></th>
-          <th><h6>Área</h6></th>
+          <!--<th><h6>Área</h6></th>-->
           <th><h6>Aplicación</h6></th>
           <th><h6>Hrs/ANS</h6></th>
-          <th><h6>Hrs/Reporte</h6></th>
+          <th><h6>Tiempo reporte</h6></th>
+          <th><h6>Termino hrs ANS</h6></th>
           <th><h6>Descripción</h6></th>
          </tr>
       </div>
@@ -73,19 +74,23 @@
         <td><%= incidentmanagement.incident.criticality.name %></td>
         <td><%= incidentmanagement.incident.userapplication.applicationclient.client.name %></td>
         <td><%= incidentmanagement.incident.user.name %></td>
-        <td><%= incidentmanagement.incident.area.name %></td>
+        <!--<td><%= incidentmanagement.incident.area.name %></td>-->
         <td><%= incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
         <td><%= incidentmanagement.incident.userapplication.applicationclient.servicelevel %>hrs</td>
         <td>
-            <%= localize (incidentmanagement.incident.created_at.in_time_zone) %>
+            <%= incidentmanagement.incident.created_at.in_time_zone.strftime("%d/ %m/ %Y || %T") %>
           <p> Hace
-            <%= time_ago_in_words(incidentmanagement.incident.created_at) %></p></td>
+            <%= time_ago_in_words(incidentmanagement.incident.created_at.in_time_zone.strftime("%d/ %m/ %Y %T")) %></p>
+        </td>
+        <td><%= incidentmanagement.Tlevel.in_time_zone.strftime("%d/ %m/ %Y || %T") %></td>
         <td><%= incidentmanagement.incident.description %></td>
+
         <!--<td>
            <%comment= link_to incidentmanagement, method: :delete, data: { confirm: 'Desea eliminar?', remote: true, class:"modal-content" } do %>
                 <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
            <% end %>
         </td>-->
+
        </tr>
        
       </div>

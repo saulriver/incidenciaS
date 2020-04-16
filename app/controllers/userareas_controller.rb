@@ -1,4 +1,6 @@
 class UserareasController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_userarea, only: [:show, :edit, :update, :destroy]
 
   # GET /userareas
@@ -30,7 +32,7 @@ class UserareasController < ApplicationController
 
     respond_to do |format|
       if @userarea.save
-        format.html { redirect_to @userarea, info: 'Userarea was successfully created.' }
+        format.html { redirect_to @userarea, info: 'Área fue creada con éxito.' }
         format.json { render :show, status: :created, location: @userarea }
       else
         format.html { render :new }
@@ -44,7 +46,7 @@ class UserareasController < ApplicationController
   def update
     respond_to do |format|
       if @userarea.update(userarea_params)
-        format.html { redirect_to @userarea, success: 'Userarea was successfully updated.' }
+        format.html { redirect_to @userarea, success: 'Área fue actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @userarea }
       else
         format.html { render :edit }
@@ -58,7 +60,7 @@ class UserareasController < ApplicationController
   def destroy
     @userarea.destroy
     respond_to do |format|
-      format.html { redirect_to users_path(), danger: 'Userarea was successfully destroyed.' }
+      format.html { redirect_to users_path(), danger: 'Área fue destruida con éxito.' }
       format.json { head :no_content }
     end
   end
@@ -81,4 +83,11 @@ class UserareasController < ApplicationController
     def area_params
       params.require(:area).permit( :name, :state)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+    
 end

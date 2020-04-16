@@ -1,4 +1,6 @@
 class ApplicationclientsController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_applicationclient, only: [:show, :edit, :update, :destroy]
 
   # GET /applicationclients
@@ -19,6 +21,7 @@ class ApplicationclientsController < ApplicationController
 
   # GET /applicationclients/1/edit
   def edit
+    @applicationclient = Applicationclient.find(params[:id])
   end
 
   # POST /applicationclients
@@ -28,7 +31,7 @@ class ApplicationclientsController < ApplicationController
 
     respond_to do |format|
       if @applicationclient.save
-        format.html { redirect_to @applicationclient, info: 'Applicationclient was successfully created.' }
+        format.html { redirect_to client_application_client_index_path(), notice: 'Aplicación cliente se creo correctamente.' }
         format.json { render :show, status: :created, location: @applicationclient }
       else
         format.html { render :new }
@@ -40,14 +43,15 @@ class ApplicationclientsController < ApplicationController
   # PATCH/PUT /applicationclients/1
   # PATCH/PUT /applicationclients/1.json
   def update
-    respond_to do |format|
+    #respond_to do |format|
       if @applicationclient.update(applicationclient_params)
-        format.html { redirect_to @applicationclient, success: 'Applicationclient was successfully updated.' }
-        format.json { render :show, status: :ok, location: @applicationclient }
+        redirect_to  client_application_client_index_path(), notice: 'Aplicación cliente se actualizó correctamente.'
+        #format.html { render :new, notice: 'Aplicación cliente se actualizó correctamente.' }
+        #format.json { render :edit, status: :ok, location: @applicationclient }
       else
-        format.html { render :edit }
+        format.html { render client_application_client_index_path() }
         format.json { render json: @applicationclient.errors, status: :unprocessable_entity }
-      end
+      #end
     end
   end
 
@@ -57,7 +61,7 @@ class ApplicationclientsController < ApplicationController
     @applicationclient = Applicationclient.find(params[:id])
     @applicationclient.destroy
     respond_to do |format|
-      format.html { redirect_to clients_path(:id), danger: 'Applicationclient was successfully destroyed.' }
+      format.html { redirect_to client_application_client_index_path(), info: 'Aplicación cliente fue destruida con éxito' }
       format.json { head :no_content }
     end
   end
@@ -72,4 +76,16 @@ class ApplicationclientsController < ApplicationController
     def applicationclient_params
       params.require(:applicationclient).permit(:user_id, :application_id, :client_id, :servicelevel, :state, :page)
     end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def client_params
+      params.require(:client).permit(:nit, :name, :reason, :addres, :telephone, :contact, :state, :page, :search)
+    end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+
 end

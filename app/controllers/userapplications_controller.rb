@@ -1,4 +1,6 @@
 class UserapplicationsController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_userapplication, only: [:show, :edit, :update, :destroy]
 
   # GET /userapplications
@@ -29,7 +31,7 @@ class UserapplicationsController < ApplicationController
 
     respond_to do |format|
       if @userapplication.save
-        format.html { redirect_to @userapplication, info: 'Userapplication was successfully created.' }
+        format.html { redirect_to @userapplication, info: 'La aplicación de usuario se creó con éxito.' }
         format.json { render :show, status: :created, location: @userapplication }
       else
         format.html { render :new }
@@ -43,7 +45,7 @@ class UserapplicationsController < ApplicationController
   def update
     respond_to do |format|
       if @userapplication.update(userapplication_params)
-        format.html { redirect_to @userapplication, success: 'Actualizada.' }
+        format.html { redirect_to @userapplication, success: 'La aplicación de usuario se actualizó con éxito.' }
         format.json { render :show, status: :ok, location: @userapplication }
       else
         format.html { render :edit }
@@ -56,10 +58,10 @@ class UserapplicationsController < ApplicationController
   # DELETE /userapplications/1.json
   def destroy
     @userapplication = Userapplication.find(params[:id])
-    @userapplication.destroy
-    respond_to do |format|
-      format.html { redirect_to users_path(:id), danger: 'Userapplication was not successfully destroyed.'}
-      format.json { head :no_content }
+      @userapplication.destroy
+      respond_to do |format|
+      format.html { redirect_to users_path(:id), info: 'La aplicación de usuario se destruyó con éxito.'}
+      format.json {  head :no_content }
     end
   end
 
@@ -72,5 +74,11 @@ class UserapplicationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def userapplication_params
       params.require(:userapplication).permit(:user_id, :applicationclient_id, :application_id, :client_id, :state)
+    end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
     end
 end

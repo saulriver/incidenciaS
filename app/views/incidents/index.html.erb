@@ -3,7 +3,8 @@
   <hr>
 
 <div class="footer">
-    <%= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
+    <%comment= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
+
      <div class="form-group">
        <%comment= form_tag(incidents_path, class:"form-inline" , method: :get) do %>
        <input type="text" name="q" class="form-control" placeholder="Buscar por área o aplicación" type="text" value="<%= params[:q] %>">
@@ -13,15 +14,17 @@
 
 <% flash.each do |name, msg| %>
       <div class="alert alert-info alert-dismissible">
+      <h5>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <%= msg%>
+        </h5>
       </div>
     <% end %>
 
 <h5 class="text-left"><kbd>Listado incidencias reportadas</kbd></h5>
 <div class="modal-content text-center">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-default table-hover">
 <thead>
   <div class="row">
     <tr class="success btn-info active justify-content-center">
@@ -44,16 +47,16 @@
 <tbody>
   <div class="row">
     <tr class="justify-content-center figure-caption">
-        <td colspan="3"><kbd><%= incidentmanagement.incident.id %></kbd></td>
+        <td colspan="3"><h6><kbd><%= incidentmanagement.incident.id %></kbd></h6></td>
         <td><%= incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
         <td><%= incidentmanagement.incident.area.name %></td>
         <td><%= incidentmanagement.user.name %></td>
         <td><%= incidentmanagement.incident.criticality.name %></td>
         <td><%= incidentmanagement.incident.userapplication.applicationclient.servicelevel %>hrs</td>
         <td>
-        <%= localize (incidentmanagement.incident.created_at)%>
+        <%= incidentmanagement.incident.created_at.in_time_zone.strftime('%d/ %m/ %Y || %T') %>
         <p> Hace
-        <%= time_ago_in_words(incidentmanagement.incident.created_at) %></p></td>
+        <%= time_ago_in_words(incidentmanagement.incident.created_at.in_time_zone.strftime('%d/ %m/ %Y %T')) %></p></td>
         <td><%= incidentmanagement.incident.description %></td>
         <td>
       

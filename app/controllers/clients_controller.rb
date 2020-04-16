@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   # GET /clients
@@ -60,17 +62,18 @@ class ClientsController < ApplicationController
   def destroy
     @client.destroy
     respond_to do |format|
-      format.html { redirect_to clients_url, danger: 'Cliente eliminado correctamente.' }
+      format.html { redirect_to clients_url, notice: 'Cliente eliminado correctamente.' }
       format.json { head :no_content }
     end
   end
 
-  def client_application_client_index    
+  def client_application_client_index  
     @client = Client.find(params[:id])
-    @clientapplicationclients = @client.applicationclients.page(params[:page]).per(5)
-    @applications = Application.all
-    @applicationclient = Applicationclient.new
-    render "applicationclients/index"
+      @applicationclient = Applicationclient.find(params[:id])
+        @clientapplicationclients = @client.applicationclients.page(params[:page]).per(5)
+        @applications = Application.all
+      @applicationclient = Applicationclient.new
+    render "applicationclients/index", notice: 'Application cliente se guardo exitosamente.'
 
   end
 
@@ -78,12 +81,12 @@ def client_application_client_create
     @applicationclient = Applicationclient.new(applicationclient_params)
   if @applicationclient.save
    @client = Client.find(params[:id]) 
-   @clientapplicationclients = @client.applicationclients.page(params[:page]).per(5)
-   @applications = Application.all
+    @clientapplicationclients = @client.applicationclients.page(params[:page]).per(5)
+    @applications = Application.all
    @clientapplicationclient = Applicationclient.new
-    render "applicationclients/index", notice: 'Applicationclient was successfully created.'
+    render "applicationclients/index", notice: 'Aplicación cliente fue creado exitosamente.'
   else
-    format.json { render json: @clientapplicationclient.errors, status: :unprocessable_entity }
+    format.json { render "client_application_client_index", notice: 'Aplicación cliente ya se encuentra registrado' }
   end
 end
 
@@ -91,12 +94,13 @@ def client_application_client_destroy
   @applicationclient = Applicationclient.find(applicationclient_params)
   if @applicationclient.destroy
    @client = Client.find(params[:id]) 
-    respond_to do |format|#parametro para mostrar en pdf
-      format.html { render "client/index", notice: 'Application client was not successfully destroyed'}
+    respond_to do |format|
+      format.html { render "client/index", notice: 'Aplicación cliente se destruyo correctamente'}
       format.json {}      
    end
   end
 end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
@@ -111,4 +115,11 @@ end
     def applicationclient_params
       params.require(:applicationclient).permit(:user_id, :client_id, :state, :servicelevel, :application_id, :page)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+
 end

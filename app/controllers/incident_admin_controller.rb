@@ -1,5 +1,5 @@
 class IncidentAdminController < ApplicationController
-  before_action :authenticate_login!
+    before_action :authenticate_login!
     before_action :authenticate_role_user
     before_action :set_incident_admin, only: [:index]
 
@@ -11,8 +11,7 @@ class IncidentAdminController < ApplicationController
         # flash[:success] = "Busqueda correctamente"
         # else
         #   flash[:alert] = "Problemas con la grabación"
-        @incidents = Incident.joins(:incidentmanagements).where("incidentmanagements.user_id = #{current_login.user_id}").order("incidentmanagements.user_id DESC").page(params[:page]).per(5)
-        @incident.picture     
+        @incidents = Incident.joins(:incidentmanagements).where("incidentmanagements.user_id = #{current_login.user_id}").order("incidentmanagements.user_id DESC").page(params[:page]).per(5)   
       end
   
       render "incidentAdmin/index"
@@ -26,7 +25,7 @@ class IncidentAdminController < ApplicationController
        
       #Rails.logger.debug("Entrooooooooooo, area: " + @incidentmanagement.incident.area.id.to_s)
      
-      render "incidentAdmin/assign_incident"
+      render "incidentAdmin/assign_incident", notice: "Incidencia asignada correctamente"
   
     end
 
@@ -40,15 +39,15 @@ class IncidentAdminController < ApplicationController
 
     def incident_admin_assign_operator 
       
-      Rails.logger.debug("Entrooooooooooo: " + params[:incidentmanagement_id].to_s)
+      #Rails.logger.debug("Entrooooooooooo: " + params[:incidentmanagement_id].to_s)
         @userOperator = User.find(params[:operador_id])
          @incidentmanagement = Incidentmanagement.find(params[:incidentmanagement_id])
       
       if @incidentmanagement.update_attributes(:user_id => @userOperator.id)
-          output = {'error' => 'false', 'message' => 'Se ha asignado exitosamente'}.to_json
+          output = {'error' => 'false', 'notice' => 'Se ha asignado exitosamente'}.to_json
            render :json => output
         else
-          output = {'error' => 'true', 'message' => 'Error al asiganar incidencia'}.to_json
+          output = {'error' => 'true', 'notice' => 'Error al asiganar incidencia'}.to_json
            render :json => output
       end
 

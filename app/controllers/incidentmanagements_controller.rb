@@ -50,7 +50,7 @@ class IncidentmanagementsController < ApplicationController
           @incidentmanagement = Incidentmanagement.create(Tlevel: tlevel, user: @user, incident: @incident, Littletime: littletime, Overtime: overtime)
         end
       if @incidentmanagement.save!
-        format.html { redirect_to @incidentmanagement, info: 'Incidentmanagement was successfully created.' }
+        format.html { redirect_to @incidentmanagement, info: 'La descripción se genero con éxito.' }
         format.json { render :show, status: :created, location: @incidentmanagement }
       else
         format.html { render :new }
@@ -64,7 +64,7 @@ class IncidentmanagementsController < ApplicationController
   def update
     respond_to do |format|
       if @incidentmanagement.update(incidentmanagement_params)
-        format.html { redirect_to edit_incidentmanagement_path(), success: 'Incidentmanagement was successfully updated.' }
+        format.html { redirect_to edit_incidentmanagement_path(), info: 'La descripción se actualizo con éxito.' }
         format.json { render :show, status: :ok, location: @incidentmanagement }
       else
         format.html { render :edit }
@@ -78,7 +78,7 @@ class IncidentmanagementsController < ApplicationController
   def destroy
     @incidentmanagement.destroy
     respond_to do |format|
-      format.html { redirect_to incidentmanagements_url, danger: 'Incidentmanagement was successfully destroyed.' }
+      format.html { redirect_to incidentmanagements_url, info: 'Incidentmanagement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

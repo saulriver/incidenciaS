@@ -1,4 +1,6 @@
 class AreasController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_area, only: [:show, :edit, :update, :destroy]
 
   # GET /areas
@@ -28,7 +30,7 @@ class AreasController < ApplicationController
 
     respond_to do |format|
       if @area.save
-        format.html { redirect_to areas_path(@area), info: 'Area was successfully created.' }
+        format.html { redirect_to areas_path(@area), info: 'Área creada con éxito.' }
         format.json { render :show, status: :created, location: @area }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class AreasController < ApplicationController
   def update
     respond_to do |format|
       if @area.update(area_params)
-        format.html { redirect_to areas_path(@area), success: 'Area was successfully updated.' }
+        format.html { redirect_to areas_path(@area), success: 'Área actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class AreasController < ApplicationController
   def destroy
     @area.destroy
     respond_to do |format|
-      format.html { redirect_to areas_url, danger: 'Area was successfully destroyed.' }
+      format.html { redirect_to areas_url, danger: 'Área destruida con éxito.' }
       format.json { head :no_content }
     end
   end
@@ -71,4 +73,11 @@ class AreasController < ApplicationController
     def area_params
       params.require(:area).permit( :name, :state)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+    
 end

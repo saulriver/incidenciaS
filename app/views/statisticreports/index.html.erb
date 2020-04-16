@@ -3,16 +3,25 @@
 <hr>
 <div class="container dark1-mode">
  <div class="row">
-   <h1 style="color: #6c757d;">Incidencias reportadas
-    <%= column_chart @incidents, prefix: "Total reporte: " %></h1>
+   <h1 style="color: #6c757d;">Total reportadas.
+    <%= column_chart @incidents, download: true, colors: ["#17a2b8"], dataset: {borderWidth: 130}, width: "400px" %></h1>
      <hr> 
 
-      <h1 style="color: #6c757d;">Reporte por aplicación
-        <%= pie_chart @applications, prefix: "Total: " %></h1>
+        <h1 style="color: #6c757d;">Reporte por aplicación.
+         <%= pie_chart @applications, donut: true, download: true, width: "400px" %></h1>
         <hr>
 
-        <h1 style="color: #6c757d;">Reporte por área
-        <%= column_chart @areas, prefix: "Total: " %></h1>
+        <h1 style="color: #6c757d;">Reporte por área.
+          <%= column_chart @areas, download: true, colors: ["#5e1200"], dataset: {borderWidth: 43}, width: "400px" %></h1>
         <hr>
+
+        <h1 style="color: #6c757d;">Reportadas al mes.
+          <%= column_chart @incidentsmonths, download: true, colors: ["#1762b8"], dataset: {borderWidth: 64}, width: "400px" %></h1>
+        <hr> 
+
+        <h1 style="color: #6c757d;">Reportadas por día.
+          <%= bar_chart @incidentsdays, download: true, colors: ["#006241"], dataset: {borderWidth: 9}, width: "400px" %></h1>
+        <hr> 
+
     </div>
   </div>

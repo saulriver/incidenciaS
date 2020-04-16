@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -8,8 +10,6 @@ def index
     @users = User.where("name LIKE ?", "%#{params[:search]}%").page params[:page]
   else
     @users = User.page(params[:page]).per(5)
-    @incidents_count = Incident.group(:user_id).count
-      @incidents_date = Incident.group(:created_at).count
     end
 end
   # GET /users/1
@@ -25,6 +25,8 @@ end
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
+    @login = Login.find(params[:id])
   end
 
   # POST /users
@@ -35,7 +37,7 @@ end
     @user.login = @login
     respond_to do |format|
       if @user.save && @login.save
-        format.html { redirect_to users_path(@user), info: 'Usuario guardado correctamente.' }
+        format.html { redirect_to users_path(@user), info: 'Usuario creado correctamente.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -48,7 +50,7 @@ end
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params) && @login.update(login_params)
+      if @user.update(user_params) #&& @login.update(login_params)
         format.html { redirect_to users_path(@user), success: 'Usuario actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -64,7 +66,7 @@ end
     @user.destroy
     @login.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, danger: 'Usuario eliminado correctamente.' }
+      format.html { redirect_to users_url, danger: 'Usuario destruido correctamente.' }
       format.json { head :no_content }
     end
   end
@@ -83,7 +85,8 @@ def user_client_create
       @user = User.find(params[:id])
       redirect_to user_client_index_path(@user.id), info: 'Usuario cliente guardado correctamente.' 
      else
-      render json: { error: @clientuser.errors.full_messages }, status: :bad_request
+      @user = User.find(params[:id])
+      redirect_to user_client_index_path(@user.id), info: 'Usuario encargado no puede estar registrado con otro cliente.' 
     end
 end
 
@@ -92,15 +95,15 @@ end
     @userclient = Userclient.find(params[:userclient_id])
     if @userclient.destroy
       @user = User.find(params[:id])
-      redirect_to user_client_index_path(@user.id), danger: 'Usuario cliente eliminado correctamente.' 
+      redirect_to user_client_index_path(@user.id), info: 'Usuario cliente destruido correctamente.' 
     end
 
   end
 
   def user_area_index
     @user = User.find(params[:id])
-    @userareas = @user.userareas.page(params[:page]).per(5)
-    @areas = Area.all
+      @userareas = @user.userareas.page(params[:page]).per(5)
+      @areas = Area.all
     @userarea = Userarea.new
     render "userareas/index"
   end
@@ -110,18 +113,17 @@ def user_area_create
   if @areauser.save
       @user = User.find(params[:id])
       @userareas = @user.userareas.page(params[:page]).per(5)
-      redirect_to user_area_index_path(@user.id), info: 'Userarea was successfully created.'
-  else
-    render json: { error: @areauser.errors.full_messages }, status: :bad_request
+      redirect_to user_area_index_path(@user.id), info: 'Área se asigno con éxito.'
+    else
+      render json: { error: @areauser.errors.full_messages }, status: :bad_request
+    end
   end
-end
-
 
   def user_application_index
     @user = User.find(params[:id])
-    @userapplications = @user.userapplications.page(params[:page]).per(5)
-    @client = @user.userclients.last
-    @applicationclients = @client.client.applicationclients
+      @userapplications = @user.userapplications.page(params[:page]).per(5)
+       @client = @user.userclients.last
+      @applicationclients = @client.client.applicationclients
     @userapplication = Userapplication.new
     render "userapplications/index"
   end
@@ -140,8 +142,8 @@ def user_application_destroy
     @userapplication = Userapplication.find(params[:userapplication_id])
     if @userapplication.destroy
       @user = User.find(params[:id])
-      respond_to do |format|#parametro para mostrar en pdf
-        format.html { render "users/index", danger: 'Userapplication was successfully destroyed'}
+      respond_to do |format|
+        format.html { render "users/index", danger: 'La aplicación de uso fue destruida con éxito'}
         format.json {}      
      end
     end
@@ -169,7 +171,7 @@ def application_operator_destroy
     @applicationoperator = Applicationoperator.find(params[:applicationoperator])
   if @applicationoperator.destroy
      @user = User.find(params[:id])
-      redirect_to application_operator_index_path(@user.id), danger: 'Aplicación operador eliminado correctamente.' 
+      redirect_to application_operator_index_path(@user.id), danger: 'Aplicación operador destruido correctamente.' 
   end
 end
 
@@ -177,7 +179,6 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
-      @login = Login.find(params[:id])
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
@@ -203,4 +204,11 @@ end
     def applicationoperator_params
       params.require(:applicationoperator).permit(:user_id, :application_id, :state)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+
 end

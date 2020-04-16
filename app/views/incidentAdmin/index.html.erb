@@ -13,8 +13,10 @@
 
 <% flash.each do |name, msg| %>
       <div class="alert alert-info alert-dismissible">
+      <h5>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <%= msg%>
+        </h5>
       </div>
     <% end %>
 
@@ -25,13 +27,14 @@
   <div class="col-sm-12">
     <div class="modal-content text-center">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-default table-hover">
            <thead>  
               <tr class="success btn-info active justify-content-center">
               <th colspan="3"><h5><b style="color: orange">Ticket</b></h5></th>
+              <th><h6>Cliente</h6></th>
+              <th><h6>Reporta</h6></th>
               <th><h6>Aplicación</h6></th>
               <th><h6>Area</h6></th>
-              <th><h6>Reporta</h6></th>
               <th><h6>Nivel criticidad</h6></th>
               <th><h6>ANS</h6></th>
               <th><h6>Enviada</h6></th>
@@ -45,13 +48,18 @@
 
              <tbody> 
                 <tr class="justify-content-center figure-caption">
-                    <td colspan="3"><kbd><%= incidentmanagement.incident.id %></kbd></td>
+                    <td colspan="3"><h6><kbd><%= incidentmanagement.incident.id %></kbd></h6></td>
+                    <td><%= incidentmanagement.incident.userapplication.applicationclient.client.name %></td>
+                    <td><%= incidentmanagement.incident.user.name %></td>
                     <td><%= incidentmanagement.incident.userapplication.applicationclient.application.name %></td>
                     <td><%= incidentmanagement.incident.area.name %></td>
-                    <td><%= incidentmanagement.incident.user.name %></td>
                     <td><%= incidentmanagement.incident.criticality.name %></td>
                     <td><%= incidentmanagement.incident.userapplication.applicationclient.servicelevel %>hrs</td>
-                    <td><%= localize (incidentmanagement.incident.created_at.in_time_zone) %></td>
+                    <td><%= incidentmanagement.incident.created_at.in_time_zone.strftime("%d/ %m/ %Y %T") %>
+                    <p> Hace
+                      <%= time_ago_in_words(incidentmanagement.incident.created_at.in_time_zone.strftime("%d/ %m/ %Y %T"))%>
+                    </p>
+                    </td>
                     <td><%= incidentmanagement.incident.description %></td>
                     <td>      
                         <% if incidentmanagement.state == "abierta" %>              

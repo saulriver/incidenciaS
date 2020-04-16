@@ -1,4 +1,6 @@
 class RolesController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_role, only: [:show, :edit, :update, :destroy, :vista]
 
   # GET /roles
@@ -77,4 +79,11 @@ class RolesController < ApplicationController
     def role_params
       params.require(:role).permit(:name, :state)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+    
 end

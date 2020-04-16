@@ -5,12 +5,23 @@
     <div class="footer">
       <%= link_to 'Nuevo', new_criticality_path, class: "btn btn-info" %>
       <%= link_to "Menú", vistaclientes_path, class:"btn btn-info" %>
-    </div><br/>
+    </div>
+    
+    <br/>
+
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-info alert-dismissible">
+      <h5>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= msg%>
+        </h5>
+      </div>
+    <% end %>
     
 <h5 class="text-left"><kbd>Listado criticidad</kbd></h5>
 <div id="Criticidades" class="modal-content text-center tabcontent">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-default table-hover">
   <thead>
   <div class="row">
     <tr class="alert alert-secondary justify-content-center">
@@ -27,7 +38,7 @@
   <tbody>
     <div class="row">
       <tr class="text-center figure-caption">
-        <td colspan="3"><kbd><%= criticality.id %></kbd></td>
+        <td colspan="3"><h6><kbd><%= criticality.id %></kbd></h6></td>
         <td><%= criticality.name %></td>
         <td>
           <% if criticality.state %>

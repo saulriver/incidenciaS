@@ -1,1 +1,1 @@
-Rails.application.config.time_zone = 'Eastern Time (US & Canada)'
+Rails.application.config.time_zone = 'Bogota'

@@ -1,126 +1,138 @@
 <br/><br/>
   <h1 style="color: #6c757d;">Usuario área</h1>
-<hr><%= notice%>
+<hr>
 
 <div class="row">
-<div class="col-sm-12">
-<div class="footer text-left">
- <%= link_to 'Regresar', users_path, class: "btn btn-info" %>
-</div><br/>
-<h5 class="text-left"><kbd>Usuario</kbd></h5>
-  <div id="Nservicios" class="modal-content text-center tabcontent">
-    <div class="table-responsive">
-     <table class="table">
-      <thead>
-     <div class="row">
-     <tr class="alert alert-secondary justify-content-center">
-            <th colspan="3">Id</th>
-            <th>Nombre</th>
-            <th>Correo</th> 
-            <th>Nombre usuario</th>
-            <th>Role</th>
-            <th>Estado</th>
-        </tr>
-        </div>
-        </thead>
-          <tbody>
-              <tr class="text-center figure-caption">
-                <td colspan="3"><kbd><%= @user.id %></kbd></td>
-                <td><%= @user.name %></td>
-                <td><%= @user.email %></td>
-                <td><%= @user.username %></td> 
-                <td><%= @user.role.name %></td>
-                <td>
-                  <% if @user.state %>           
-                    <img src="/img/estado_activo_24.png" alt="Activo" />
-                  <% else %>           
-                    <img src="/img/estado_falso_24.png" alt="Inactivo" />
-                  <% end %>
-                </td>
-              </tr>
-          </tbody>
-      </table>
-</div>
-</div>
-</div>
-</div>
-
- <p class="divider"></p>
-  
-<div class="row">
-  <div class="col-sm-8">
-     <h5 class="text-left"><kbd>Listado usuario área</kbd></h5>
-   <div id="Uaplicaciones" class="modal-content text-center tabcontent">
-    <div class="table-responsive">
-     <table class="table">
-      <thead>
-    <tr class="alert alert-secondary justify-content-center">
-      <th colspan="3">Id</th> 
-      <th>Nombre</th>
-      <th>Area</th>
-      <th>Estado</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-  <% @userareas.each do |userarea| %>
-      <tr class="text-center figure-caption">
-        <td colspan="3"><kbd><%= userarea.id %></kbd></td>
-        <td><%= userarea.user.name %></td>
-        <td><%= userarea.area.name %></td>
-        <td>
-          <% if userarea.state %>
-            <img src="/img/estado_activo_24.png" alt="Activo" />
-          <% else %>           
-            <img src="/img/estado_falso_24.png" alt="Inactivo" />
-          <% end %>
-        </td>
-        <td>
-          <%= link_to userarea, method: :delete, data: { confirm: 'Are you sure?', remote: true } do %>
-                <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
-           <% end %>
-        </td>
-      </tr>
-      <% end %>
-      </tbody>
-</table>
-</div>
-</div>
-<div id="spacing">
-    <%= paginate(@userareas) %>
-</div>
-</div>
-
-<!--tabla editar-->
-<div class="col-sm-4">
-  <!-- The Modal -->
-    <div class="modal-dialog">
-      <div class="modal-content">
- <!-- Modal Header -->
-    <div class="modal-header">
-      <h5 class="modal-title"><kbd>Asignar</kbd></h5>
-    </div>
-<!-- Modal body -->
-  <div class="modal-body">
-    <div class="modal-content tabcontent">
-        <div class="dialog">
-        <%= simple_form_for(@userarea, url: user_area_create_path) do |f| %>
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <%= f.hidden_field :user_id, :value => @user.id%>
-        <%= f.hidden_field :state, :value => true%>
-
-    <form>
-      <figcaption class="figure-caption">
-        <%= f.label :area %>
-        <%= f.select :area_id, options_for_select(@areas.collect{ |area| [area.name, area.id] })%>
-        </figcaption>
-
-      <%= f.submit "Guardar", method: :edit %>
-
-     </form>
+  <div class="col-sm-12">
+    <div class="footer text-left">
+      <%= link_to 'Regresar', users_path, class: "btn btn-info" %>
       </div>
+      
+      <br/>
+
+      <% flash.each do |name, msg| %>
+        <div class="alert alert-info alert-dismissible">
+        <h5>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%= msg%>
+          </h5>
+        </div>
+      <% end %>
+
+      <h5 class="text-left"><kbd>Usuario</kbd></h5>
+        <div id="Nservicios" class="modal-content text-center tabcontent">
+          <div class="table-responsive">
+          <table class="table table-default table-hover">
+            <thead>
+            <div class="row">
+              <tr class="alert alert-secondary justify-content-center">
+                  <th colspan="3">Id</th>
+                  <th>Nombre</th>
+                  <th>Correo</th> 
+                  <th>Nombre usuario</th>
+                  <th>Role</th>
+                  <th>Estado</th>
+              </tr>
+              </div>
+              </thead>
+                <tbody>
+                    <tr class="text-center figure-caption">
+                      <td colspan="3"><h6><kbd><%= @user.id %></kbd></h6></td>
+                      <td><%= @user.name %></td>
+                      <td><%= @user.email %></td>
+                      <td><%= @user.username %></td> 
+                      <td><%= @user.role.name %></td>
+                      <td>
+                          <% if @user.state %>           
+                            <img src="/img/estado_activo_24.png" alt="Activo" />
+                          <% else %>           
+                            <img src="/img/estado_falso_24.png" alt="Inactivo" />
+                          <% end %>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+      </div>
+      </div>
+      </div>
+      </div>
+
+      <p class="divider"></p>
+        
+      <div class="row">
+        <div class="col-sm-8">
+          <h5 class="text-left"><kbd>Listado usuario área</kbd></h5>
+        <div id="Uaplicaciones" class="modal-content text-center tabcontent">
+          <div class="table-responsive">
+          <table class="table table-default table-hover">
+            <thead>
+          <tr class="alert alert-secondary justify-content-center">
+            <th colspan="3">Id</th> 
+            <th>Nombre</th>
+            <th>Area</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+        <% @userareas.each do |userarea| %>
+            <tr class="text-center figure-caption">
+              <td colspan="3"><h6><kbd><%= userarea.id %></kbd></h6></td>
+              <td><%= userarea.user.name %></td>
+              <td><%= userarea.area.name %></td>
+              <td>
+                <% if userarea.state %>
+                  <img src="/img/estado_activo_24.png" alt="Activo" />
+                <% else %>           
+                  <img src="/img/estado_falso_24.png" alt="Inactivo" />
+                <% end %>
+              </td>
+              <td>
+                <%= link_to userarea, method: :delete, data: { confirm: 'Esta seguro de eliminar?'} do %>
+                      <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+            </tbody>
+      </table>
+      </div>
+      </div>
+      <div id="spacing">
+          <%= paginate(@userareas) %>
+      </div>
+      </div>
+
+  <!--tabla editar-->
+  <div class="col-sm-4">
+    <!-- The Modal -->
+      <div class="modal-dialog">
+        <div class="modal-content">
+  <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title"><kbd>Asignar</kbd></h5>
+      </div>
+    <!-- Modal body -->
+      <div class="modal-body">
+        <div class="modal-content tabcontent">
+            <div class="dialog">
+            <%= simple_form_for(@userarea, url: user_area_create_path) do |f| %>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+            <%= f.hidden_field :user_id, :value => @user.id%>
+            <%= f.hidden_field :state, :value => true%>
+
+        <form>
+          <figcaption class="figure-caption">
+            <%= f.label :area %>
+            <%= f.select :area_id, options_for_select(@areas.collect{ |area| [area.name, area.id] })%>
+            </figcaption>
+
+          <%= f.submit "Guardar" %>
+
+        </form>
+       </div>
       <% end %>
       </div>
      </div>

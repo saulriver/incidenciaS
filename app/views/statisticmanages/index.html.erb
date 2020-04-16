@@ -3,17 +3,28 @@
 <hr>
 <div class="container dark1-mode">
  <div class="row">
-    <h1 style="color: #6c757d;">Incidencias por usuario
-      <%= pie_chart @incidentmanagements, prefix: "Total reporte: " %></h1>
+
+     <h1 style="color: #6c757d;">Incidencias por usuario
+      <%= column_chart @incidentmanagements, download: true, colors: ["#17a2b8"], dataset: {borderWidth: 130}, width: "400px" %></h1>
      <hr> 
-    <h1 style="color: #6c757d;">Gestión por área
-      <%= column_chart @areas, prefix: "Total: " %></h1>
+
+     <h1 style="color: #6c757d;">Gestión por aplicación
+       <%= pie_chart @applications,  download: true, donut: true %></h1>
      <hr>
-    <h1 style="color: #6c757d;">Gestión por aplicación
-     <%= pie_chart @applications, prefix: "Total: " %></h1>
+
+     <h1 style="color: #6c757d;">Gestión por área
+      <%= column_chart @areas, download: true, colors: ["#263859"], dataset: {borderWidth: 43}, width: "400px" %></h1>
      <hr>
-    <h1 style="color: #6c757d;">Gestión por cliente
-      <%= bar_chart @clients, prefix: "Total: " %></h1>
+
+      <h1 style="color: #6c757d;">Gestión por cliente
+        <%= bar_chart @clients, download: true, colors: ["#1762b8"], dataset: {borderWidth: 45}, width: "400px" %></h1>
       <hr>
+
+      <h1 style="color: #6c757d;">Estados de gestión.
+        <%= pie_chart @months, download: true, colors: ["#1762b8"], width: "400px" %></h1>
+      <hr> 
+      
+    <!--<h1 style="color: #6c757d;">Gestión por cliente
+      <%= bar_chart @clients, prefix: "Total: " %></h1>-->
  </div>
 </div>

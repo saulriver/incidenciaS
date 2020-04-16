@@ -5,8 +5,19 @@
   <div class="footer">
     <%= link_to 'Nuevo', new_user_path, class: "btn btn-info" %>
     <%= link_to "Menú", vistaroles_path, class:"btn btn-info" %>
-  </div><br/>
+  </div>
+  
+  <br/>
 
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-info alert-dismissible">
+    <h5>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <%= msg%>
+      </h5>
+    </div>
+  <% end %> 
+  
 <div class="custom-search-form">
   <%=form_tag (users_path), method: :get do %>
   <%=text_field_tag(:search, params[:search], placeholder: "Buscar...")%>
@@ -17,7 +28,7 @@
 <h5 class="text-left"><kbd>Listado usuarios</kbd></h5>
 <div id="Usuarios" class="modal-content text-center tabcontent">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-default table-hover">
   <thead>
   <div class="row">
     <tr class="alert alert-secondary justify-content-center">
@@ -38,7 +49,7 @@
   <tbody>
     <div class="row">
       <tr class="text-center figure-caption">
-        <td colspan="3"><kbd><%= user.id %></kbd></td>
+        <td colspan="3"><h6><kbd><%= user.id %></kbd></h6></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.role.name %></td>

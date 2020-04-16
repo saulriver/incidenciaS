@@ -1,4 +1,6 @@
 class ApplicationoperatorsController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_applicationoperator, only: [:show, :edit, :update, :destroy]
 
   # GET /applicationoperators
@@ -56,7 +58,7 @@ class ApplicationoperatorsController < ApplicationController
   def destroy
     @applicationoperator.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, danger: 'Application Operator was successfully destroyed.' }
+      format.html { redirect_to users_url, danger: 'El operador de la aplicación fue destruido con éxito.' }
       format.json { head :no_content }
     end
   end

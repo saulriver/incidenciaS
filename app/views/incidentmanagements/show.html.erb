@@ -20,25 +20,26 @@
       <h5 class="text-left"><kbd>Archivos gestión incidencia</kbd></h5>
         <div class="modal-content text-center">
           <label class="form-group">
-              &nbsp; &nbsp;
+              <!--&nbsp; &nbsp;-->
                 <%comment= link_to edit_incidentmanagement_path(@incidentmanagement) do %>
-                <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
-                  <% end %>
+                  <%= image_tag "/img/edit_24.png", :title=>"Editar" %>
+                 <% end %>
                 <tbody>
-                    <br/><br/>
+                    <br/>
                     <!--<figure class="figure">
                       <% (0...@incidentmanagement.images.count).each do |image| %>
-                        <%= image_tag(@incidentmanagement.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
-                      <%end%>
-                    </figure>-->
-                    <br/>
-                    <figure class="figure">
-                        <% (0...@incidentmanagement.images.count).each do |image| %>
-                          <%= link_to @incidentmanagement.images[image] do %>
+                        <%= link_to @incidentmanagement.images[image] do %>
                           <%= image_tag "/img/file2_128.png", :title=>"Ver documento" %>
                         <%end%>
                       <%end%>
+                    </figure>-->
+
+                    <figure class="figure">
+                        <% (0...@incidentmanagement.images.count).each do |image| %>
+                          <%= image_tag(@incidentmanagement.images[image], class: 'figure-img img-fluid rounded', title:"Click derecho para ver imagen") %>
+                           <%end%>
                     </figure>
+
                   </tbody>
               </label>
           </div>

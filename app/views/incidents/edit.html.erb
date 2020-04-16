@@ -7,20 +7,22 @@
   <div class="col-md-12">
     <div class="footer text-left">
         <%= link_to 'Regresar', incidents_path, class: "btn btn-info" %>
-        <%= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
+        <%comment= link_to 'Menú', vistareportes_path, class: "btn btn-info" %>
       </div><br/>
 
     <% flash.each do |name, msg| %>
         <div class="alert alert-info alert-dismissible">
+        <h5>
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <%= msg%>
+          </h5>
         </div>
       <% end %>
     
 <h5 class="text-left"><kbd>Incidencia reportada</kbd></h5>
 <div class="modal-content text-center">
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-default table-hover">
       <thead>
         <tr class="success btn-info active justify-content-center">
           <th colspan="2"><h5><b style="color: orange">Ticket</b></h5></th>
@@ -28,7 +30,8 @@
           <th><h6>Área</h6></th>
           <th><h6>Operador</h6></th>
           <th><h6>ANS</h6></th>
-          <th><h6>Reportada</h6></th>
+          <th><h6>A 1 hrs del ANS</h6></th>
+          <th><h6>Termino hrs ANS</h6></th>
           <!--<th><h6>Descripción</h6></th>-->
           <th><h6>Archivos</h6></th>
           <th><h6>Estado</h6></th>
@@ -38,27 +41,27 @@
 
     <tbody>
       <tr class="text-center figure-caption">
-        <td colspan="2"><kbd><%= @incident.id%></kbd></td>
+        <td colspan="2"><h6><kbd><%= @incident.id%></kbd></h6></td>
         <td><%= @incident.userapplication.applicationclient.application.name %></td>
         <td><%= @incident.area.name %></td>
         <td><%= @incidentmanagement.user.name %></td>
         <td><%= @incident.userapplication.applicationclient.servicelevel %>hrs</td>
-        <td><%= localize (@incident.created_at.in_time_zone)%>
+        <td><%= @incidentmanagement.Littletime.in_time_zone.strftime("%d/ %m/ %Y || %T") %></td>
+        <td><%= @incidentmanagement.Tlevel.in_time_zone.strftime("%d/ %m/ %Y || %T") %></td>
+        <!--<td><%= @incident.created_at.in_time_zone.strftime("%d/ %m/ %Y || %T") %>
           <p> Hace
-           <%= time_ago_in_words(@incident.created_at.in_time_zone)%>
+           <%= time_ago_in_words(@incident.created_at.in_time_zone.strftime("%d/ %m/ %Y %T"))%>
           </p>
-        </td>
+        </td>-->
         <!--<td><%= @incident.description%></td>-->
         <td>
-          <% if @incident.images %>
-           <%= link_to incident_path, alt: 'Ver imagen' do %>
-            <%= image_tag "/img/file_24.png", :title=>"Ver" do %>
-             <p>No tiene archivos adjuntos </p>
-             <% end %>
-            <% end %>
+           <% if @incident.images %>
+            <%= link_to image_tag("/img/file_24.png", :title=>"Ver imagen"), incident_path %>
+           <% else %>
+            <p>No</p>
            <% end %>
          </td>
-       <td style="color:#2663E5;" ><b><%= @incidentmanagement.state %></b></td>
+         <td style="color:#2663E5;" ><b><%= @incidentmanagement.state %></b></td>
           <td>
             <% if @incidentmanagement.state == "terminada" %> 
               <%= link_to aprobar_incident_path(@incidentmanagement.id), data: { confirm: 'Estas seguro de aprobar esta incidencia?', remote: false } do %>
@@ -106,12 +109,12 @@ tabla imagen Fin del comentado-->
 <h5 class="text-left"><kbd>Gestión incidencia</kbd></h5>
   <div class="modal-content text-center">
     <div class="table-responsive">
-      <table class="table">
+      <table class="table table-default table-hover">
         <thead>
           <tr class="success btn-info active justify-content-center">
-            <th><h6>Operador</h6></th>
+            <th><h6>Usuario</h6></th>
             <th><h6>Descripción</h6></th>
-            <th><h6>Gestionada</h6></th>
+            <th><h6>Tiempo de respuesta</h6></th>
             <th><h6>Archivos</h6></th>
             <th><h6>Estado</h6></th>
           </tr>
@@ -120,9 +123,9 @@ tabla imagen Fin del comentado-->
         <tr class="text-center figure-caption">
            <td><%= incidentmanagement.user.name %></td>
            <td><%= incidentmanagement.description %></td>
-           <td><%= localize (incidentmanagement.updated_at) %>
+           <td><%= incidentmanagement.updated_at.in_time_zone.strftime("%d/ %m/ %Y || %T") %>
              <p> Hace
-               <%= time_ago_in_words(incidentmanagement.updated_at) %>
+               <%= time_ago_in_words(incidentmanagement.updated_at.in_time_zone.strftime("%d/ %m/ %Y %T") ) %>
                </p>           
            </td>
            <td>

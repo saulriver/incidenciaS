@@ -8,17 +8,21 @@ class StatisticmanagesController < ApplicationController
       .where("incidentmanagements.user_id = #{current_login.user.id}")
       .group(:name).count
 
-      @areas = Incidentmanagement.joins({incident: :area})
+      @applications = Incidentmanagement.joins(incident: {userapplication: {applicationclient: :application}})
       .where("incidentmanagements.user_id = #{current_login.user.id}")
       .group(:name).count
 
-      @applications = Incidentmanagement.joins(incident: {userapplication: {applicationclient: :application}})
+      @areas = Incidentmanagement.joins({incident: :area})
       .where("incidentmanagements.user_id = #{current_login.user.id}")
       .group(:name).count
 
       @clients = Incidentmanagement.joins(incident: {userapplication: {applicationclient: :client}})
       .where("incidentmanagements.user_id = #{current_login.user.id}")
       .group(:name).count
+
+      @months = Incidentmanagement.joins(incident: {userapplication: {applicationclient: :application}})
+      .where("incidentmanagements.user_id = #{current_login.user.id}")
+      .group(:state).count
 
     end
 

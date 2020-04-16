@@ -1,4 +1,6 @@
 class CriticalitiesController < ApplicationController
+  before_action :authenticate_login!
+  before_action :authenticate_role_user
   before_action :set_criticality, only: [:show, :edit, :update, :destroy]
 
   # GET /criticalities
@@ -25,10 +27,9 @@ class CriticalitiesController < ApplicationController
   # POST /criticalities.json
   def create
     @criticality = Criticality.new(criticality_params)
-
     respond_to do |format|
       if @criticality.save
-        format.html { redirect_to criticalities_path(@criticality), info: 'Criticality was successfully created.' }
+        format.html { redirect_to criticalities_path(@criticality), info: 'Criticidad creada con éxito.' }
         format.json { render :show, status: :created, location: @criticality }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class CriticalitiesController < ApplicationController
   def update
     respond_to do |format|
       if @criticality.update(criticality_params)
-        format.html { redirect_to criticalities_path(@criticality), success: 'Criticality was successfully updated.' }
+        format.html { redirect_to criticalities_path(@criticality), success: 'Criticidad actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @criticality }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class CriticalitiesController < ApplicationController
   def destroy
     @criticality.destroy
     respond_to do |format|
-      format.html { redirect_to criticalities_url, danger: 'Criticality was successfully destroyed.' }
+      format.html { redirect_to criticalities_url, danger: 'Criticidad destruida con éxito.' }
       format.json { head :no_content }
     end
   end
@@ -71,4 +72,11 @@ class CriticalitiesController < ApplicationController
     def criticality_params
       params.require(:criticality).permit( :name, :state)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+    
 end
