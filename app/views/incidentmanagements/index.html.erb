@@ -4,9 +4,11 @@
 
 <div class="footer text-left">
     <%comment= link_to 'Menú', vistagestions_path, class: "btn btn-info" %>
-  </div><br/>
+  </div>
+  
+  <br/>
 
-<% flash.each do |name, msg| %>
+    <% flash.each do |name, msg| %>
       <div class="alert alert-info alert-dismissible">
       <h5>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

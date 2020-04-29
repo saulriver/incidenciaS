@@ -8,8 +8,10 @@
 
 <% flash.each do |name, msg| %>
       <div class="alert alert-info alert-dismissible">
+      <h5>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <%= msg%>
+      </h5>  
       </div>
     <% end %>
 

@@ -95,7 +95,7 @@
                       <% end %>
                   </td>
                   <td>
-                      <%= link_to userapplication, method: :delete, data: { confirm: 'Desea Eliminar?' } do %>
+                      <%= link_to user_application_destroy_path(:userapplication_id => userapplication.id, :user_id => userapplication.user.id) do %>
                       <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
                       <% end %>
                   </td>

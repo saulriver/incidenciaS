@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 def index
     if params[:search].present?
     @users = User.where("name LIKE ?", "%#{params[:search]}%").page params[:page]
-  else
+      else
     @users = User.page(params[:page]).per(5)
     end
 end
@@ -105,7 +105,7 @@ end
       @userareas = @user.userareas.page(params[:page]).per(5)
       @areas = Area.all
     @userarea = Userarea.new
-    render "userareas/index"
+    render "userareas/index", info: 'El área de usuario se guardo exitosamente.'
   end
 
 def user_area_create
@@ -113,10 +113,19 @@ def user_area_create
   if @areauser.save
       @user = User.find(params[:id])
       @userareas = @user.userareas.page(params[:page]).per(5)
-      redirect_to user_area_index_path(@user.id), info: 'Área se asigno con éxito.'
+      redirect_to user_area_index_path(@user.id), info: 'El área de usuario se asigno con éxito.'
     else
       render json: { error: @areauser.errors.full_messages }, status: :bad_request
     end
+  end
+
+  def user_area_destroy
+    @userarea = Userarea.find(params[:userarea_id])
+       if @userarea.destroy
+           redirect_to user_area_index_url, id: params[:user_id], info: "Aplicación cliente ANS a sido destruido correctamente."
+        else  
+        redirect_to user_area_index_url, id: params[:user_id]
+      end
   end
 
   def user_application_index
@@ -125,28 +134,26 @@ def user_area_create
        @client = @user.userclients.last
       @applicationclients = @client.client.applicationclients
     @userapplication = Userapplication.new
-    render "userapplications/index"
+    render "userapplications/index", info: 'Aplicación usuario a sido guardado correctamente.' 
   end
 
 def user_application_create
 @applicationuser = Userapplication.new(userapplication_params)
   if @applicationuser.save
    @user = User.find(params[:id])
-    redirect_to user_application_index_path(@user.id), info: 'Usuario aplicación guardado correctamente.' 
+    redirect_to user_application_index_path(@user.id), info: 'Aplicación usuario a sido guardado correctamente.' 
     else
     render json: { error: @applicationuser.errors.full_messages }, status: :bad_request
   end
 end
 
 def user_application_destroy
-    @userapplication = Userapplication.find(params[:userapplication_id])
-    if @userapplication.destroy
-      @user = User.find(params[:id])
-      respond_to do |format|
-        format.html { render "users/index", danger: 'La aplicación de uso fue destruida con éxito'}
-        format.json {}      
-     end
-    end
+  @userapplication = Userapplication.find(params[:userapplication_id])
+  if @userapplication.destroy
+    redirect_to user_application_index_url, id: params[:user_id], info: "Aplicación usuario a sido destruido correctamente."
+  else  
+    redirect_to user_application_index_url, id: params[:user_id]
+  end
 end
 
   def application_operator_index
@@ -154,7 +161,7 @@ end
     @applicationoperators = @user.applicationoperators.page(params[:page]).per(5)
     @applications = Applicationclient.all
     @applicationoperator = Applicationoperator.new
-    render "applicationoperators/index"
+    render "applicationoperators/index", info: 'Aplicación operador se guardo correctamente.'
   end
 
 def application_operator_create
@@ -168,11 +175,12 @@ def application_operator_create
 end
 
 def application_operator_destroy
-    @applicationoperator = Applicationoperator.find(params[:applicationoperator])
+    @applicationoperator = Applicationoperator.find(params[:applicationoperator_id])
   if @applicationoperator.destroy
-     @user = User.find(params[:id])
-      redirect_to application_operator_index_path(@user.id), danger: 'Aplicación operador destruido correctamente.' 
-  end
+    redirect_to application_operator_index_url, id: params[:user_id], info: "Aplicación operador a sido destruido correctamente."
+  else  
+  redirect_to application_operator_index_url, id: params[:user_id]
+    end
 end
 
   private

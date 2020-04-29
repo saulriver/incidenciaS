@@ -1,12 +1,23 @@
   <br/><br/>
   <h1 style="color: #6c757d;">Cliente</h1>
-<hr><%= notice%>
-   
+<hr>
+
 <div class="row">
   <div class="boton1">
     <%= link_to 'Regresar', clients_path, class: "btn btn-info" %>
     </div>
-</div><br/>
+</div>
+
+<br/>
+
+<% flash.each do |name, msg| %>
+  <div class="alert alert-info alert-dismissible">
+    <h5>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <%= msg%>
+    </h5>
+  </div>
+<% end %>
 
 <div class="divform">
   <div class="modal-header">
@@ -57,12 +68,12 @@
       <div class="left">
         <figcaption class="figure-caption">
           <%= f.label :state %>
-          <%= f.select :state,  options_for_select([['Activo', true], ['Inactivo', false]]) %>
+          <%= f.select :state,  options_for_select([['Activo', true], ['Inactivo', false]]), class:"form-control" %>
         </figcaption>
       </div>
 
       <div class="center">
-        <%= f.submit 'Guardar', method: :new %>
+        <%= f.submit "Guardar", method: :new %>
       </div>
       
    </form>

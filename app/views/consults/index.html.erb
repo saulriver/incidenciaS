@@ -3,12 +3,14 @@
 <hr></br>
 <!--<input type="date" />-->
 
-<h5 style="color: #6c757d;">Ingresa fecha</h5>
-<%= form_tag consults_index_path, :method => :get do %>
-      <!--<%= text_field_tag  :incidentmanagement, params[:incidentmanagement]%>-->
+    <h5 style="color: #6c757d;">Ingresa fecha</h5>
+      <%= form_tag consults_index_path, :method => :get do %>
+        <!--<%= text_field_tag  :incidentmanagement, params[:incidentmanagement]%>-->
         <%= date_field_tag :incidentmanagement, params[:created_at] %>
-      <%= submit_tag "Buscar", created_at: nil %>
-    <% end %>
+        <%= submit_tag "Buscar", created_at: nil %>
+      <% end %>
+
+    <br/>
 
   <h5 style="color: #6c757d;">Tabla de consulta por fechas</h5>
    <div class="modal-content text-center">
@@ -41,9 +43,9 @@
                 <td><%= incidentmanagement.incident.userapplication.applicationclient.client.name %></td>
                 <td><%= incidentmanagement.incident.userapplication.user.name %></td>
                 <td><%= incidentmanagement.user.name %></td>
-                <td><%= localize (incidentmanagement.incident.created_at) %>
+                <td><%= incidentmanagement.incident.created_at.in_time_zone.strftime('%d/ %m/ %Y || %T') %>
                   <p> Hace 
-                    <%= time_ago_in_words(incidentmanagement.incident.created_at) %>
+                    <%= time_ago_in_words(incidentmanagement.incident.created_at.in_time_zone.strftime('%d/ %m/ %Y %T')) %>
                     </p>
                 </td>
             </tr>

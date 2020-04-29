@@ -32,7 +32,7 @@ class UserareasController < ApplicationController
 
     respond_to do |format|
       if @userarea.save
-        format.html { redirect_to @userarea, info: 'Área fue creada con éxito.' }
+        format.html { redirect_to @userarea, info: 'El área de usuario fue creada con éxito.' }
         format.json { render :show, status: :created, location: @userarea }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class UserareasController < ApplicationController
   def update
     respond_to do |format|
       if @userarea.update(userarea_params)
-        format.html { redirect_to @userarea, success: 'Área fue actualizada con éxito.' }
+        format.html { redirect_to @userarea, success: 'El área de usuario fue actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @userarea }
       else
         format.html { render :edit }
@@ -58,9 +58,10 @@ class UserareasController < ApplicationController
   # DELETE /userareas/1
   # DELETE /userareas/1.json
   def destroy
+    @userarea = Userarea.find(params[:id])
     @userarea.destroy
     respond_to do |format|
-      format.html { redirect_to users_path(), danger: 'Área fue destruida con éxito.' }
+      format.html { redirect_to users_path(:id), info: 'El área de usuario fue destruida con éxito.' }
       format.json { head :no_content }
     end
   end

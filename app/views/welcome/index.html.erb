@@ -1,14 +1,18 @@
+<br/><br/>
 <% flash.each do |name, msg| %>
-      <div class="alert alert-info alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <%= msg%>
-      </div>
-    <% end %>
+  <div class="alert alert-info alert-dismissible">
+  <h5>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%= msg%>
+  </h5>
+  </div>
+<% end %>
+
 <div class="bg-text">
-  <h2>REGEDIN SOFTWARE</h2>
-  <h1 style="font-size:50px">Bienvenido  <% if login_signed_in? %>
-  <%= current_login.username %>
-<%end%></h1>
-  <p><h6>!Realiza tu petición para tener el gusto de atenderla.</h6></p>
+    <h2>REGEDIN SOFTWARE</h2>
+      <h1 style="font-size:50px">Bienvenido  <% if login_signed_in? %>
+        <%= current_login.username %>
+        <%end%></h1>
+      <p><h6>!Realiza tu petición para tener el gusto de atenderla.</h6></p>
 </div>
 

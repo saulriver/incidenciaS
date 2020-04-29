@@ -56,9 +56,10 @@ class ApplicationoperatorsController < ApplicationController
   # DELETE /applicationoperators/1
   # DELETE /applicationoperators/1.json
   def destroy
+    @applicationoperator = Applicationoperator.find(params[:id])
     @applicationoperator.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, danger: 'El operador de la aplicación fue destruido con éxito.' }
+      format.html { redirect_to applicationoperators_path(:id), info: 'Aplicación operador a sido destruido correctamente.' }
       format.json { head :no_content }
     end
   end
@@ -73,4 +74,11 @@ class ApplicationoperatorsController < ApplicationController
     def applicationoperator_params
       params.require(:applicationoperator).permit(:user_id, :application_id, :state)
     end
+
+    def authenticate_role_user
+      unless current_login.user.role_id == 3
+        redirect_to root_path
+      end      
+    end
+    
 end

@@ -26,8 +26,6 @@ class StatisticmanagesController < ApplicationController
 
     end
 
-
-
   def show
   end
 

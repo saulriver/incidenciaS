@@ -60,7 +60,7 @@ class UserapplicationsController < ApplicationController
     @userapplication = Userapplication.find(params[:id])
       @userapplication.destroy
       respond_to do |format|
-      format.html { redirect_to users_path(:id), info: 'La aplicación de usuario se destruyó con éxito.'}
+      format.html { redirect_to users_path(:id), info: 'Aplicación usuario a sido destruida correctamente.'}
       format.json {  head :no_content }
     end
   end

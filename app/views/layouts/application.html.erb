@@ -10,7 +10,8 @@
       <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-      <link rel="icon" href="img/ticket.ico">      
+      <link rel="icon" href="img/ticket.ico"> 
+           
      </head>
 
 <body>
@@ -29,12 +30,12 @@
           <li class="nav-item"><%= link_to "Consultas", consults_index_path, class:"nav-link" %></li>
           <li class="nav-item"><a class="nav-link" href="#">Reportes</a></li>
         <% end %>
-        <% if current_login.user.role_id == 2%><li class="nav-item"><%= link_to "Incidencia", new_incident_path, class:"nav-link" %></li><%end%>
-        <% if current_login.user.role_id == 2%><li class="nav-item"><%= link_to "Consulta", incidents_path, class:"nav-link" %></li><%end%>
-        <% if current_login.user.role_id == 2%><li class="nav-item"><%= link_to "Estadistica", statisticreports_path, class:"nav-link" %></li><%end%>
-        <% if current_login.user.role_id == 1%><li class="nav-item"><%= link_to "Gestión", new_incidentmanagement_path, class:"nav-link" %></li><%end%>
-        <% if current_login.user.role_id == 1%><li class="nav-item"><%= link_to "Consulta", incidentmanagements_path, class:"nav-link" %></li><%end%>
-        <% if current_login.user.role_id == 1%><li class="nav-item"><%= link_to "Estadistica", statisticmanages_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 2%><li class="nav-item" title="Reportar incidencias"><%= link_to "Incidencia", new_incident_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 2%><li class="nav-item" title="Consultar reporte incidencias"><%= link_to "Consulta", incidents_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 2%><li class="nav-item" title="Consultar estadisticas incidencias"><%= link_to "Estadistica", statisticreports_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 1%><li class="nav-item" title="Gestionar incidencias"><%= link_to "Gestión", new_incidentmanagement_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 1%><li class="nav-item" title="Consultar gestión incidencias"><%= link_to "Consulta", incidentmanagements_path, class:"nav-link" %></li><%end%>
+        <% if current_login.user.role_id == 1%><li class="nav-item" title="Consultar estadisticas gestión incidencias"><%= link_to "Estadistica", statisticmanages_path, class:"nav-link" %></li><%end%>
         <% if current_login.user.role_id == 3%><li class="nav-item"><%= link_to "Procesos", incident_admin_path, class:"nav-link" %></li><%end%>        
         </ul>
 			<ul class="navbar-nav">

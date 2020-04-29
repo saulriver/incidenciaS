@@ -1,11 +1,12 @@
-  <br/><br/>
+<br/><br/>
   <h1 style="color: #6c757d;">Aplicación cliente</h1>
-<hr><%= notice%>
+<hr>
+
 
 <div class="row">
   <div class="boton1">
-    <%= link_to 'Regresar', clients_path, class: "btn btn-info" %>
-    </div>
+    <button type="button" class="btn btn-info" onclick="history.back()" name="Regresar">Regresar</button>
+  </div>
 </div>
 
 <br/>
@@ -19,47 +20,48 @@
   </div>
 <% end %>
 
-<div class="divform">
- <div class="modal-header">
-      <h4 class="modal-title"><kbd>Registrar</kbd></h4>
+<div class="divform"> 
+  <div class="modal-header">
+  <h4 class="modal-title"><kbd>Registrar</kbd></h4>
     </div>
-  <%= simple_form_for(@applicationclient) do |f| %>
+        <%= simple_form_for(@applicationclient) do |f| %>
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        
-  <form class="form">
-    <div class="left">
-      <figcaption class="figure-caption">
-       <%= f.association :application %>
-         </figcaption>
-         </div>
+    
+    <form class="form">
 
-    <div class="right">
-      <figcaption class="figure-caption">
-        <%= f.association :client, disabled: true %>
-        </figcaption>
-        </div>
-       
-    <div class="left">
-      <figcaption class="figure-caption">
-          <%= f.input :servicelevel %>
-        </figcaption>
-        </div>
-
-    <div class="right">
-      <figcaption class="figure-caption">
-         <%= f.label :state %>
-            <%= f.select :state, options_for_select([['Activo', true], ['Inactivo', false]]), class: 'form-control' %>
+        <div class="left">
+          <figcaption class="figure-caption">
+            <%= f.association :application %>
           </figcaption>
-          </div>
+        </div>
 
-    <div class="center">
-      <%= f.submit "Guardar", method: :edit%>
-      </div>
+        <div class="right">
+          <figcaption class="figure-caption">
+              <%= f.association :client, disabled: true %>
+          </figcaption>
+        </div>
+          
+        <div class="left">
+          <figcaption class="figure-caption">
+            <%= f.input :servicelevel %>
+          </figcaption>
+        </div>
 
-</form>
+        <div class="right">
+          <figcaption class="figure-caption">
+            <%= f.label :state %>
+            <%= f.select :state, options_for_select([['Activo', true], ['Inactivo', false]]), class:"form-control" %>
+          </figcaption>
+        </div>
+
+        <div class="center">
+          <%= f.submit "Guardar"%>
+        </div>
+
+    </form>
   <% end %>
-      </div>
-      
+</div>
+  
 <!--tabla editar-->
 

@@ -35,6 +35,7 @@
               </tr>
               </div>
               </thead>
+
                 <tbody>
                     <tr class="text-center figure-caption">
                       <td colspan="3"><h6><kbd><%= @user.id %></kbd></h6></td>
@@ -74,35 +75,36 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        
+
         <tbody>
-        <% @userareas.each do |userarea| %>
+            <% @userareas.each do |userarea| %>
+
             <tr class="text-center figure-caption">
               <td colspan="3"><h6><kbd><%= userarea.id %></kbd></h6></td>
               <td><%= userarea.user.name %></td>
               <td><%= userarea.area.name %></td>
               <td>
-                <% if userarea.state %>
-                  <img src="/img/estado_activo_24.png" alt="Activo" />
-                <% else %>           
-                  <img src="/img/estado_falso_24.png" alt="Inactivo" />
-                <% end %>
+                  <% if userarea.state %>
+                    <img src="/img/estado_activo_24.png" alt="Activo" />
+                  <% else %>           
+                    <img src="/img/estado_falso_24.png" alt="Inactivo" />
+                  <% end %>
               </td>
               <td>
-                <%= link_to userarea, method: :delete, data: { confirm: 'Esta seguro de eliminar?'} do %>
-                      <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
-                <% end %>
+                  <%= link_to user_area_destroy_path(:userarea_id => userarea.id, :user_id => userarea.user.id) do %>
+                  <%= image_tag "/img/eliminar_24.png", :title=>"Eliminar" %>
+                  <% end %>
               </td>
             </tr>
-            <% end %>
-            </tbody>
+           <% end %>
+         </tbody>
       </table>
-      </div>
-      </div>
-      <div id="spacing">
-          <%= paginate(@userareas) %>
-      </div>
-      </div>
+     </div>
+    </div>
+  <div id="spacing">
+   <%= paginate(@userareas) %>
+  </div>
+</div>
 
   <!--tabla editar-->
   <div class="col-sm-4">
