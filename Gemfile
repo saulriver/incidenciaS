@@ -77,7 +77,7 @@ end
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'simple_form'
 gem 'jquery-rails'
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 gem 'kaminari-bootstrap'
 gem "font-awesome-rails"
 gem 'jquery-fileupload-rails', '~> 1.0'
