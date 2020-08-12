@@ -81,7 +81,7 @@ gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'kaminari-bootstrap'
 gem "font-awesome-rails"
 gem 'jquery-fileupload-rails', '~> 1.0'
-gem 'chartkick', '~> 3.3', '>= 3.3.1'
+gem 'chartkick', '~> 3.4'
 gem 'groupdate', '~> 4.3'
 gem 'faker', '~> 2.10', '>= 2.10.1'
 gem 'aasm', '~> 5.0', '>= 5.0.6'
